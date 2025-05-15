@@ -1,0 +1,8 @@
+My intention is to make each major part of the site its own directory, which is why home contains nothing but index.html
+
+Why is this the case? Well it's the simplest way in my mind to make prettier urls.
+
+Instead of redirecting to home.html it's just home because all modern browsers just pull the index.html.
+Separate directories let us name each one index.html, and the html-boilerplate above should be enough for any standard page.
+
+Also something of note, maybe check out .gitignore, I need some help with what shouldn't be included.

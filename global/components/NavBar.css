@@ -1,0 +1,55 @@
+/* Navbar Base */
+#navbar {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #222;
+    color: white;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Logo */
+#navbar img {
+    height: 40px;
+    margin-right: 1rem;
+}
+
+/* Links */
+#navbar .nav-links {
+    display: flex;
+    gap: 1rem;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+#navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Toggle button */
+#navbar #menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+/* Mobile menu */
+@media (max-width: 768px) {
+    #navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    #navbar .nav-links.open {
+        display: flex;
+    }
+    #navbar #menu-toggle {
+        display: block;
+    }
+}

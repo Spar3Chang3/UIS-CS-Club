@@ -1,0 +1,37 @@
+:root {
+    --primary-color: some color;
+    --secondary-color: some color;
+    --tertiary-color: some color;
+
+    --background-color: whitesmoke;
+
+    --text-color: #000;
+
+    @media only screen and (prefers-color-scheme: dark) {
+        --text-color: #FFF;
+        --background-color: #121417;
+    }
+}
+
+html {
+    margin: 0 auto;
+}
+
+body {
+    margin: 0 auto;
+    min-height: 100%;
+}
+
+header {
+    width: 100dvw;
+    height: fit-content;
+    overflow: hidden;
+}
+
+footer {
+    display: grid;
+    place-items: center;
+
+    min-height: 25px;
+    width: 100dvw;
+}
