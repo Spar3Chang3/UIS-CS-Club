@@ -7,8 +7,86 @@ h2 {
     background-color: var(--banner-color);
     padding: 0.5rem 1rem 0.5rem 1rem;
     color: whitesmoke;
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+.hero-intro-overlay {
+    position: relative;
+    display: flex;
+
+    height: 100%;
+    width: 100%;
+}
+
+.intro-hero-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.hero-text-wrapper {
+    text-align: center;
+    background: rgba(0,51,102,0.8);
+    padding: 1rem 2rem 1rem 2rem;
+    color: whitesmoke;
+    animation: fade-in 0.8s ease forwards;
+}
+
+.intro-hero-text h1 {
+    font-size: 6rem;
+}
+
+.intro-hero-text h2 {
+    font-size: 4rem;
+    background: transparent;
+}
+
+.hero-intro-overlay img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 1;
+    animation: blur 0.6s ease forwards;
+}
+
+.observer-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    align-items: center;
 }
 
 .intro-text, .events {
-    padding: 1rem 3rem 1rem 3rem;
+    width: 80%;
+    transition: all 0.5s ease;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blur {
+    from {
+        filter: blur(0);
+    }
+    to {
+        filter: blur(6px);
+    }
 }

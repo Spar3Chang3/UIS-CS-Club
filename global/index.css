@@ -53,6 +53,8 @@ footer {
     min-height: 25px;
     width: 100dvw;
     color: var(--text-color);
+
+    background-color: #111;
 }
 
 main {
