@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Kkremitzki",
+    "description": "The fearless organizer who keeps the club running like a finely tuned script.",
+    "portraitSrc": "/images/team/kkremitzki.jpg"
+  },
+  {
+    "name": "Edward",
+    "description": "Resident comedic relief — cracks jokes faster than a for-loop on caffeine.",
+    "portraitSrc": "/images/team/edward.jpg"
+  },
+  {
+    "name": "Daryk",
+    "description": "The developer who still thinks JavaScript is out to get him. Debugging his way through life.",
+    "portraitSrc": "/images/team/daryk.jpg"
+  },
+  {
+    "name": "Brian",
+    "description": "No one really knows what Brian does, but it wouldn't be the same without him.",
+    "portraitSrc": "/images/team/brian.jpg"
+  }
+]

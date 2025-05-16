@@ -1,0 +1,14 @@
+main {
+    color: var(--text-color);
+}
+
+h2 {
+    font-family: Hacked, sans-serif;
+    background-color: var(--banner-color);
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    color: whitesmoke;
+}
+
+.intro-text, .events {
+    padding: 1rem 3rem 1rem 3rem;
+}

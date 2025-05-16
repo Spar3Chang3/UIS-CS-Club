@@ -1,4 +1,4 @@
-import { NavLinks } from '/global/index.js';
+import { NavLinks, Logos, CheckColorScheme } from '/global/index.js';
 
 function initNavbar(links, logoSrc, styleSrc) {
 
@@ -42,4 +42,4 @@ function initNavbar(links, logoSrc, styleSrc) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => initNavbar(NavLinks, "/favicon.ico", "/global/components/NavBar.css"));
+document.addEventListener("DOMContentLoaded", () => initNavbar(NavLinks, CheckColorScheme(Logos.club), "/global/components/NavBar.css"));
