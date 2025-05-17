@@ -6,3 +6,26 @@ Instead of redirecting to home.html it's just home because all modern browsers j
 Separate directories let us name each one index.html, and the html-boilerplate above should be enough for any standard page.
 
 Also something of note, maybe check out .gitignore, I need some help with what shouldn't be included.
+
+[
+  {
+    "name": "Kkremitzki",
+    "description": "The fearless organizer who keeps the club running like a finely tuned script.",
+    "portraitSrc": "/global/data/images/kkremitzki.jpg"
+  },
+  {
+    "name": "Edward",
+    "description": "Resident comedic relief — cracks jokes faster than a for-loop on caffeine. Still doesn't believe in Await though.",
+    "portraitSrc": "/global/data/images/edward.png"
+  },
+  {
+    "name": "Daryk",
+    "description": "The developer who still thinks JavaScript is out to get him. Debugging his way through life.",
+    "portraitSrc": "/global/data/images/daryk.jpg"
+  },
+  {
+    "name": "Brian",
+    "description": "No one really knows what Brian does, but it wouldn't be the same without him.",
+    "portraitSrc": "/global/data/images/brian.jpg"
+  }
+]

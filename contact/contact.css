@@ -1,0 +1,58 @@
+main {
+    justify-content: center;
+}
+
+main div {
+    animation: fade-fly-in 0.5s ease;
+}
+
+.contact-text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    height: fit-content;
+    width: 80%;
+}
+
+.discrd-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+
+    height: fit-content;
+    width: 60%;
+
+    padding: 1rem 10%;
+
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: var(--box-shadow);
+    margin-top: 4rem;
+}
+
+.discrd-lnk {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    transition: all 250ms ease;
+}
+
+.discrd-lnk a {
+    position: relative;
+    text-decoration: none;
+    height: fit-content;
+    width: fit-content;
+    text-align: center;
+}
+
+.discrd-lnk a img {
+    height: 8rem;
+    width: 8rem;
+    object-fit: contain;
+}
+
+.discrd-lnk:hover {
+    transform: scale(1.1);
+}

@@ -1,6 +1,6 @@
 const memberData = "/global/data/TeamMembers.json";
 
-function addTeamMember({ name, description, portraitSrc, wrapperId }) {
+function addTeamMember({ name, description, portraitSrc, wrapperId, index }) {
     const wrapper = document.getElementById(wrapperId);
     if (!wrapper) {
         console.warn(`Wrapper element with id '${wrapperId}' not found.`);
@@ -9,6 +9,9 @@ function addTeamMember({ name, description, portraitSrc, wrapperId }) {
 
     // Create container
     const card = document.createElement('div');
+    card.style.visibility = 'hidden';
+    card.style.animation = "fade-fly-in 0.5s ease forwards";
+    card.style.animationDelay = `${100 * index}ms`;
     card.className = 'team-member-card';
 
     // Portrait
@@ -38,12 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(memberData).then((res) => {
         return res.json();
     }).then((json) => {
-        console.log(json);
+        let index = 0;
         for (const member of json) {
             addTeamMember({
                 ...member,
-                wrapperId: 'member-container'
+                wrapperId: 'member-container',
+                index
             });
+            index++;
         }
     });
 });

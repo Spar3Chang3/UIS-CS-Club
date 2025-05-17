@@ -1,3 +1,7 @@
+main {
+    gap: 4rem;
+}
+
 .hero-intro-overlay {
     position: relative;
     display: flex;
@@ -56,6 +60,75 @@
 
 .intro-text, .events {
     width: 80%;
+    transition: all 0.5s ease;
+}
+
+.event-calendar, .site-links {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.event-calendar-h2 {
+    height: fit-content;
+    width: calc(100% - 2rem);
+    transition: all 0.5s ease;
+}
+
+.event-calendar p {
+    font-size: 1rem;
+    height: fit-content;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.1rem;
+    background-color: var(--banner-color);
+    height: fit-content;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: var(--box-shadow);
+    transition: all 0.5s ease;
+    border: 0.1rem solid var(--banner-color);
+}
+
+.day {
+    background-color: var(--background-color);
+    padding: 1rem;
+    min-height: 120px;
+    position: relative;
+    color: whitesmoke;
+}
+
+.day h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.event {
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+
+    height: fit-content;
+    width: 80%;
+
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
     transition: all 0.5s ease;
 }
 

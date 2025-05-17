@@ -57,7 +57,7 @@
     box-shadow: var(--box-shadow);
     border: none;
 
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     transition: all 0.3s ease;
     z-index: 5;
     cursor: pointer;

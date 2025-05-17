@@ -1,3 +1,7 @@
+main {
+    justify-content: center;
+}
+
 .member-container {
     position: relative;
     display: flex;
@@ -16,17 +20,18 @@
 .team-member-card {
     padding: 1rem;
     border-radius: 12px;
-    background: #1f1f1f;
+    background: var(--primary-color);
     color: white;
     max-width: 15rem;
+    height: 15rem;
     text-align: center;
     box-shadow: var(--box-shadow);
     margin: 1rem;
 }
 
 .team-member-portrait {
-    width: 4rem;
-    height: 4rem;
+    width: 6rem;
+    height: 6rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     object-fit: cover;
@@ -40,5 +45,10 @@
 
 .team-member-description {
     font-size: 0.95rem;
-    color: #ccc;
+    color: whitesmoke;
+}
+
+.add-member-tooltip {
+    margin-top: 8rem;
+    animation: fade-fly-in 0.5s ease;
 }

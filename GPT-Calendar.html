@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Static Weekly Calendar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background-color: var(--background-color);
+      border: 2px solid #555;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 4rem;
+      margin-top: 2rem;
+    }
+
+    .day {
+      background-color: #1a1a1a;
+      padding: 1rem;
+      min-height: 120px;
+      position: relative;
+    }
+
+    .day h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--secondary-color);
+    }
+
+    .event {
+      background-color: var(--primary-color);
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+<div class="calendar">
+  <div class="day"><h3>Sunday</h3></div>
+  <div class="day"><h3>Monday</h3></div>
+  <div class="day"><h3>Tuesday</h3></div>
+  <div class="day">
+    <h3>Wednesday</h3>
+    <div class="event">Computer Science Club - 5:00 PM</div>
+  </div>
+  <div class="day"><h3>Thursday</h3></div>
+  <div class="day">
+    <h3>Friday</h3>
+    <div class="event">Computer Science Club - 5:00 PM</div>
+  </div>
+  <div class="day"><h3>Saturday</h3></div>
+</div>
+</body>
+</html>
