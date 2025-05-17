@@ -6,7 +6,7 @@
     background-color: var(--primary-color);
     color: white;
     flex-wrap: wrap;
-    width: 100%;
+    max-width: 100%;
 }
 
 /* Logo */
@@ -52,8 +52,8 @@
 
     padding: 0.5rem;
     aspect-ratio: 1/1;
-    top: 5vh;
-    right: 5vh;
+    top: 2.5vh;
+    right: 2.5vh;
     box-shadow: var(--box-shadow);
     border: none;
 

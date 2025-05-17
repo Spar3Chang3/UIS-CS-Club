@@ -1,0 +1,11 @@
+main {
+    justify-content: center;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+
+    height: fit-content;
+    width: 80%;
+}

@@ -56,14 +56,14 @@ function initNavbar(links, logoSrc, styleSrc) {
     topBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth' // optional — makes the scroll animated
+            behavior: 'smooth'
         });
     });
 
     document.body.appendChild(topBtn);
 
     document.addEventListener("scroll", () => {
-        if (window.scrollY > 160) {
+        if (window.scrollY > 50) {
             topBtn.style.opacity = "1";
             topBtn.style.visibility = "visible";
         } else {

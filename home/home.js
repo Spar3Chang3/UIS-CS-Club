@@ -2,7 +2,7 @@ function runIntroObserver(observerWrapper) {
     const children = observerWrapper.querySelectorAll(".intro-text, .events");
     for (const child of children) {
         console.log(child);
-        child.style = "transform: translateY(0); opacity: 1; visibility: visible;";
+        child.style = "height: fit-content; transform: translateY(0); opacity: 1; visibility: visible;";
     }
 }
 
@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
                    targets.set(id, true);
            }
        }
-   });
+   },
+       {
+           threshold: 0.8
+       }
+       );
 
     targets.forEach((_, id) => {
         const el = document.getElementById(id);
