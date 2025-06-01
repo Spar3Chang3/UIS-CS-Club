@@ -2,14 +2,16 @@ main {
     justify-content: center;
 }
 
-main div {
-    animation: fade-fly-in 0.5s ease;
-}
-
 .about-text {
     display: flex;
     flex-direction: column;
 
     height: fit-content;
     width: 80%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    main div {
+        animation: fade-fly-in 0.5s ease;
+    }
 }

@@ -1,5 +1,7 @@
 const memberData = "/global/data/TeamMembers.json";
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 function addTeamMember({ name, description, portraitSrc, wrapperId, index }) {
     const wrapper = document.getElementById(wrapperId);
     if (!wrapper) {
@@ -9,9 +11,15 @@ function addTeamMember({ name, description, portraitSrc, wrapperId, index }) {
 
     // Create container
     const card = document.createElement('div');
-    card.style.visibility = 'hidden';
-    card.style.animation = "fade-fly-in 0.5s ease forwards";
-    card.style.animationDelay = `${100 * index}ms`;
+    if (!reducedMotion.matches) {
+        card.style.visibility = 'hidden';
+        card.style.animation = "fade-fly-in 0.5s ease forwards";
+        card.style.animationDelay = `${100 * index}ms`;
+    } else {
+        card.style.visibility = 'visible';
+        card.style.animation = 'none';
+        card.style.animationDelay = 'none';
+    }
     card.className = 'team-member-card';
 
     // Portrait

@@ -50,5 +50,10 @@ main {
 
 .add-member-tooltip {
     margin-top: 8rem;
-    animation: fade-fly-in 0.5s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .add-member-tooltip {
+        animation: fade-fly-in 0.5s ease;
+    }
 }

@@ -80,11 +80,21 @@
         display: none;
         flex-direction: column;
         width: 100%;
+        margin-top: 0.5rem;
+        font-size: 2rem;
     }
     #navbar .nav-links.open {
         display: flex;
     }
     #navbar #menu-toggle {
         display: block;
+    }
+    #navbar img {
+        min-height: 1.5rem;
+        max-height: 2rem;
+    }
+
+    .menu-toggle {
+        font-size: 2rem;
     }
 }

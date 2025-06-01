@@ -1,5 +1,7 @@
 import { NavLinks, Logos, CheckColorScheme } from '/global/index.js';
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 function initNavbar(links, logoSrc, styleSrc) {
 
     if (styleSrc) {
@@ -54,10 +56,17 @@ function initNavbar(links, logoSrc, styleSrc) {
     topBtn.style.visibility = "hidden";
 
     topBtn.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        if (reducedMotion.matches) {
+            window.scrollTo({
+                top: 0,
+                behavior: "instant"
+            })
+        } else {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     });
 
     document.body.appendChild(topBtn);

@@ -2,10 +2,6 @@ main {
     justify-content: center;
 }
 
-main div {
-    animation: fade-fly-in 0.5s ease;
-}
-
 .contact-text {
     position: relative;
     display: flex;
@@ -36,7 +32,6 @@ main div {
 
     justify-content: center;
     align-items: center;
-    transition: all 250ms ease;
 }
 
 .discrd-lnk a {
@@ -53,6 +48,27 @@ main div {
     object-fit: contain;
 }
 
-.discrd-lnk:hover {
-    transform: scale(1.1);
+@media (prefers-reduced-motion: no-preference) {
+    main div {
+        animation: fade-fly-in 0.5s ease;
+    }
+
+    .discrd-lnk {
+        transition: all 250ms ease;
+    }
+
+    .discrd-lnk:hover {
+        transform: scale(1.1);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .discrd-lnk a img {
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .discrd-wrapper {
+        gap: 2rem;
+    }
 }
