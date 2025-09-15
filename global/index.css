@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Hacked";
-    src: url("/global/data/cringe.ttf") format("truetype");
+    src: url("/global/data/JetBrainsMono-SemiBold.woff2") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
