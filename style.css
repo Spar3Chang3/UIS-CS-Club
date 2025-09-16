@@ -1,0 +1,199 @@
+@font-face {
+    font-family: "JetBrains";
+    src: url("/assets/JetBrainsMono-SemiBold.woff2") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --primary-color: #4a5ffa;
+    --secondary-color: #72b8fe;
+    --tertiary-color: some color;
+
+    --banner-color: #2c3398;
+
+    --background-color: whitesmoke;
+
+    --text-color: #000;
+    --hyperlink-color: #72b8fe;
+
+    --box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+
+    @media only screen and (prefers-color-scheme: dark) {
+        --text-color: #fff;
+        --background-color: #121417;
+        --box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+    }
+}
+
+html {
+    margin: 0 auto;
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    background-color: var(--background-color);
+    font-family: Roboto, sans-serif;
+}
+
+main {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    color: var(--text-color);
+}
+
+h2 {
+    font-family: JetBrains, sans-serif;
+    background-color: var(--banner-color);
+    padding: 0 1rem;
+    width: 100%;
+    color: whitesmoke;
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+.hero-intro-overlay {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    width: 100dvw;
+}
+
+.hero-intro-overlay > img {
+    position: absolute;
+    display: block;
+    object-fit: cover;
+    height: 100dvh;
+    width: 100dvw;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.hero-intro-text-wrapper {
+    display: grid;
+    place-items: center;
+    height: 100dvh;
+    width: 100dvw;
+    z-index: 2;
+    opacity: 0;
+    animation: intro-animation 0.3s linear forwards;
+}
+
+.hero-intro-text {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    &h1 {
+        color: white;
+    }
+    padding: 1rem 2rem;
+}
+
+.promotional-content {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: 90%;
+    padding: 1rem;
+}
+
+.promotional-content :nth-child(1) {
+    opacity: 0.4;
+    margin-top: 6rem;
+    transition:
+        opacity,
+        margin 300ms ease;
+}
+
+.promotional-content :nth-child(2) {
+    opacity: 0.4;
+    margin-top: 6rem;
+    animation-delay: 300ms;
+    transition:
+        opacity,
+        margin 300ms ease;
+}
+
+.promotional-content :nth-child(3) {
+    opacity: 0.4;
+    margin-top: 6rem;
+    animation-delay: 600ms;
+    transition:
+        opacity,
+        margin 300ms ease;
+}
+
+.promotional-content :nth-child(4) {
+    opacity: 0.4;
+    margin-top: 6rem;
+    animation-delay: 900ms;
+    transition:
+        opacity,
+        margin 300ms ease;
+}
+
+.promotional-content.active :nth-child(1),
+.promotional-content.active :nth-child(2),
+.promotional-content.active :nth-child(3),
+.promotional-content.active :nth-child(4) {
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+@keyframes fade-fly-in {
+    from {
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes intro-animation {
+    from {
+        opacity: 0;
+        backdrop-filter: none;
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(12px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+        padding: 0.5rem;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    p,
+    a {
+        font-size: 1.2rem;
+    }
+}
