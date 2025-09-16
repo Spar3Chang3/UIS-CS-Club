@@ -1,11 +1,11 @@
 function initFooter(styleSrc) {
-    if (styleSrc) {
-        const styleLink = document.createElement("link");
-        styleLink.rel = "stylesheet";
-        styleLink.type = "text/css";
-        styleLink.href = styleSrc;
-        document.head.appendChild(styleLink);
-    }
+    // if (styleSrc) { //TODO: find out what this was supposed to do, because all it does rn is throw an error.
+    //     const styleLink = document.createElement("link");
+    //     styleLink.rel = "stylesheet";
+    //     styleLink.type = "text/css";
+    //     styleLink.href = styleSrc;
+    //     document.head.appendChild(styleLink);
+    // }
 
     const footer = document.getElementById("footer");
 
