@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const targets = new Map([["promotional-content", false]]);
+  // Need to add other targets to maintain uniformity with animations
 
   const observer = new IntersectionObserver(
     (entries) => {
