@@ -107,55 +107,64 @@ p {
     padding: 1rem 2rem;
 }
 
-.promotional-content {
+.content {
     display: flex;
     flex-direction: column;
-    height: fit-content;
+    height: 100%;
     width: 90%;
     padding: 1rem;
 }
 
-.promotional-content :nth-child(1) {
+.content :nth-child(1) {
     opacity: 0.4;
-    margin-top: 6rem;
+    transform: translateY(6rem);
     transition:
         opacity,
-        margin 300ms ease;
+        transform 300ms ease;
 }
 
-.promotional-content :nth-child(2) {
+.content :nth-child(2) {
     opacity: 0.4;
-    margin-top: 6rem;
+    transform: translateY(12rem);
     animation-delay: 300ms;
     transition:
         opacity,
-        margin 300ms ease;
+        transform 300ms ease;
 }
 
-.promotional-content :nth-child(3) {
+.content :nth-child(3) {
     opacity: 0.4;
-    margin-top: 6rem;
+    transform: translateY(18rem);
     animation-delay: 600ms;
     transition:
         opacity,
-        margin 300ms ease;
+        transform 300ms ease;
 }
 
-.promotional-content :nth-child(4) {
+.content :nth-child(4) {
     opacity: 0.4;
-    margin-top: 6rem;
+    transform: translateY(24rem);
     animation-delay: 900ms;
     transition:
         opacity,
-        margin 300ms ease;
+        transform 300ms ease;
 }
 
-.promotional-content.active :nth-child(1),
-.promotional-content.active :nth-child(2),
-.promotional-content.active :nth-child(3),
-.promotional-content.active :nth-child(4) {
+.content.active :nth-child(1),
+.content.active :nth-child(2),
+.content.active :nth-child(3),
+.content.active :nth-child(4) {
     opacity: 1;
-    margin-top: 1rem;
+    transform: translateY(0);
+}
+
+.img-lnk {
+    text-decoration: none;
+    height: 5rem;
+    width: 5rem;
+    object-fit: contain;
+    padding: 0.5rem;
+    cursor: pointer;
 }
 
 @keyframes fade-fly-in {

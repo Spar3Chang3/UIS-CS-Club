@@ -6,8 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = window.matchMedia("only screen and (max-width: 768px)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  const targets = new Map([["promotional-content", false]]);
-  // Need to add other targets to maintain uniformity with animations
+  const targets = new Map([
+    ["promotional-content", false],
+    ["schedule-content", false],
+  ]);
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -19,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     {
-      threshold: 0.5,
+      threshold: 0.8,
     },
   );
 
