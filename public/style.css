@@ -23,6 +23,7 @@
 
     --bg-clr: whitesmoke;
     --border-color: rgba(114, 184, 254, 0.8);
+    --effct-bg: transparent;
 
     --text-color: #000;
     --hyperlink-color: #72b8fe;
@@ -43,6 +44,7 @@
     @media (prefers-contrast: more) {
         --primary-color: rgba(74, 95, 250, 1);
         --secondary-color: rgba(44, 70, 153, 1);
+        --effct-bg: #395a7f;
     }
 }
 
@@ -109,6 +111,7 @@ h2 {
     font-size: 2.5rem;
     box-shadow: var(--box-shadow);
     border-radius: 8px;
+    margin: 0;
 }
 
 p {
@@ -142,7 +145,7 @@ button {
     place-items: center;
     height: fit-content;
     width: 100vw;
-    padding: 0.5rem 1rem;
+    padding: 2rem 1rem;
     box-sizing: border-box;
     margin-top: 10vh;
     border-top: 0.2rem solid var(--border-color);
@@ -151,10 +154,6 @@ button {
 
 .footer p {
     font-size: unset;
-}
-
-.footer.active .hvr-jmp-container {
-    bottom: 8rem;
 }
 
 .ftr-copyright,
@@ -166,9 +165,8 @@ button {
     text-align: center;
 }
 
-.ftr-disclaimer details {
+.ftr-disclaimer summary {
     cursor: pointer;
-    transition: height 0.4s ease;
 }
 
 .ftr-lnks {
@@ -218,8 +216,9 @@ button {
     padding: 0.25rem;
     z-index: 5;
     overflow: visible;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+    background-color: var(--effct-bg);
     border: 0.1rem dashed var(--border-color);
     transition: bottom 0.3s ease;
 }
@@ -285,7 +284,7 @@ button {
         height 0.4s ease,
         margin 0.4s ease;
     background-color: transparent;
-    border-radius: 4px;
+    border-radius: 6px;
     z-index: 5;
 }
 
@@ -339,7 +338,7 @@ button {
     background-color: var(--primary-color);
     padding: 1rem 2rem;
     box-shadow: var(--box-shadow);
-    border-radius: 4px;
+    border-radius: 8px;
     border: 0.2rem solid var(--border-color);
 }
 
@@ -378,19 +377,18 @@ button {
 .member-content {
     display: flex;
     flex-direction: column;
-    min-height: 20vh;
-    max-height: 100%;
+    min-height: 25vh;
+    max-height: fit-content;
     width: 95%;
-    padding: 1rem;
+    padding: 1.5rem 1rem;
     margin-top: 5vh;
     margin-bottom: 5vh;
     position: relative;
     overflow: hidden;
     align-items: center;
-    scroll-margin-top: 30vh;
     backdrop-filter: blur(4px);
     border: 0.2rem solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .content::before,
@@ -401,12 +399,15 @@ button {
     display: block;
     height: 0; /* start collapsed */
     pointer-events: none; /* don’t block clicks */
+    overflow: hidden;
 }
 
 .content::before,
 .member-content::before {
-    margin-top: 24rem; /* reserve vertical space equal to deepest translation */
+    height: 0;
+    margin-top: 4rem;
     transition: margin-top 300ms ease;
+    overflow: hidden;
 }
 
 .content.active::before,
@@ -630,8 +631,7 @@ button {
 
 @media only screen and (max-width: 1920px) {
     .hvr-jmp-container {
-        scale: 1.5;
-        right: 2rem;
-        bottom: 2rem;
+        transform: scale(1.5);
+        transform-origin: bottom right;
     }
 }

@@ -1,39 +1,117 @@
-const MEMBER_DATA_PATH = "/assets/members/ClubMembers.json";
-const MEMBER_WRAPPER_ID = "member-container";
-const IS_MOBILE = window.matchMedia("only screen and (max-width: 768px)");
-const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
-const TARGET_LIST = [
-  "promotional-content",
-  "schedule-content",
-  "contact-content",
-  "member-content",
-];
-const JUMP_BUTTON_NAMES = ["Promotion", "Schedule", "Contact", "Members"];
-const HOVER_JUMP_BUTTON_ICONS = [
-  `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-speakerphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a.9 .9 0 0 1 1.476 .692v12.156a.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`,
-  `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>`,
-  `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-discord"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M15.5 17c0 1 1.5 3 2 3c1.5 0 2.833 -1.667 3.5 -3c.667 -1.667 .5 -5.833 -1.5 -11.5c-1.457 -1.015 -3 -1.34 -4.5 -1.5l-.972 1.923a11.913 11.913 0 0 0 -4.053 0l-.975 -1.923c-1.5 .16 -3.043 .485 -4.5 1.5c-2 5.667 -2.167 9.833 -1.5 11.5c.667 1.333 2 3 3.5 3c.5 0 2 -2 2 -3" /><path d="M7 16.5c3.5 1 6.5 1 10 0" /></svg>`,
-  `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>`,
-];
-const HOVER_JUMP_BUTTON_STATES = {
-  open: "open",
-  closed: "closed",
-};
-const FOOTER_ID = "footer"; // This may be considered temp, I really need to just implement an observer callback function
-const FOOTER_DETAILS_ID = "ftr-disclaimer-details";
+/*
+  TODO:
+    * Finish implementing reduced motion stuffs
+    * Potentially move major constants into their own JS file
+*/
 
-function applyObservation(target) {
-  target.classList.add("active");
+const MEMBER_DATA_PATH = "/assets/members/ClubMembers.json"; // For fetching all the club members obvi, need to make an "add club member" part too
+const IS_MOBILE = window.matchMedia("only screen and (max-width: 768px)"); // 768px just because most modern phones report around there - fuck you iPhone 4s
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)"); // Still need to properly implement
+const WINDOW_HEIGHT = window.innerHeight;
+
+const EL_ID_LIST = {
+  // Observer Sections
+  promoContent: "promotional-content",
+  schedContent: "schedule-content",
+  contactContent: "contact-content",
+  memberContent: "member-content",
+  outroContent: "outro-content",
+
+  // Member wrapper
+  memberCont: "member-container",
+
+  // Nav Buttons
+  jmpList: "jmp-list",
+  hvrJmpCont: "hvr-jmp-container",
+  hvrJmpList: "hvr-jmp-list",
+  hvrJmpBtnTggl: "hvr-jmp-btn-tggl",
+
+  // Footer
+  ftr: "footer",
+  ftrDisclaimerDetails: "ftr-disclaimer-details",
+};
+
+// Felt like this was better because any addtional containers added to the site can just be put here - can have more observers than jumping buttons
+const DEFAULT_OBSERVER_TARGET_LIST = [
+  EL_ID_LIST.promoContent,
+  EL_ID_LIST.schedContent,
+  EL_ID_LIST.contactContent,
+  EL_ID_LIST.memberContent,
+  EL_ID_LIST.outroContent,
+];
+
+// Name for header buttons, icon for hover jump list, observer target list
+const JMP_BTN_ATTRIBUTES = [
+  {
+    jmpName: "Promotion",
+    hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-speakerphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a.9 .9 0 0 1 1.476 .692v12.156a.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`,
+    target: EL_ID_LIST.promoContent,
+  },
+  {
+    jmpName: "Schedule",
+    hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>`,
+    target: EL_ID_LIST.schedContent,
+  },
+  {
+    jmpName: "Contact",
+    hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-discord"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M15.5 17c0 1 1.5 3 2 3c1.5 0 2.833 -1.667 3.5 -3c.667 -1.667 .5 -5.833 -1.5 -11.5c-1.457 -1.015 -3 -1.34 -4.5 -1.5l-.972 1.923a11.913 11.913 0 0 0 -4.053 0l-.975 -1.923c-1.5 .16 -3.043 .485 -4.5 1.5c-2 5.667 -2.167 9.833 -1.5 11.5c.667 1.333 2 3 3.5 3c.5 0 2 -2 2 -3" /><path d="M7 16.5c3.5 1 6.5 1 10 0" /></svg>`,
+    target: EL_ID_LIST.contactContent,
+  },
+  {
+    jmpName: "Members",
+    hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>`,
+    target: EL_ID_LIST.memberContent,
+  },
+];
+
+const ElAttributes = {
+  hvrJmpListHeight: 0, // Expanding part of hover jump list
+  hvrJmpBtnOpen: "open", // Look these two I just didn't like being in their own separate object
+  hvrJmpBtnClosed: "closed", // ^
+  hvrJmpBtnBttmBffr: 25, // Buffer in px for button to stay away from footer
+};
+
+const ElStore = new Map([]); // ID, Doc Element
+const ObTargets = new Map([]); // ID, { callback(), cleanup(), viewed (t/f) }
+
+/* --------------------------------- UTIL FUNCTIONS --------------------------------- */
+
+function GetAllElements() {
+  for (const prop in EL_ID_LIST) {
+    const elToAdd = document.getElementById(EL_ID_LIST[prop]);
+
+    if (elToAdd) {
+      ElStore.set(EL_ID_LIST[prop], elToAdd);
+    }
+  }
 }
 
+/* --------------------------------- ELEMENT MANIPULATION FUNCTIONS --------------------------------- */
+
+// Current callbacks for observer
+
+function applyActiveClass(targetEl) {
+  targetEl.classList.add("active");
+}
+
+function moveHoverJumpList() {
+  const offset = ElStore.get(EL_ID_LIST.ftr).offsetHeight;
+  ElStore.get(EL_ID_LIST.hvrJmpCont).style.bottom =
+    `${offset + ElAttributes.hvrJmpBtnBttmBffr}px`;
+}
+
+/* --------------------------------- DOM MANIPULATION FUNCTIONS --------------------------------- */
+
 async function addMembers() {
-  const wrapper = document.getElementById(MEMBER_WRAPPER_ID);
+  const wrapper = ElStore.get(EL_ID_LIST.memberCont);
   if (!wrapper) {
-    console.warn(`Wrapper element with id '${MEMBER_WRAPPER_ID}' not found.`);
+    console.warn(
+      `Wrapper element with id '${EL_ID_LIST.memberCont}' not found.`,
+    );
     const warning = document.createElement("h3");
-    warning.textContent = `Wrapper element with id '${MEMBER_WRAPPER_ID}' not found.`;
+    warning.textContent = `Wrapper element with id '${EL_ID_LIST.memberCont}' not found.`;
     warning.style = "color: lightcoral";
-    document.getElementById("member-content").appendChild(warning);
+    ElStore.get(EL_ID_LIST.memberContent).appendChild(warning);
   } else {
     wrapper.innerHTML = "";
   }
@@ -92,24 +170,31 @@ async function addMembers() {
 }
 
 function setJumps() {
-  const jmpList = document.getElementById("jmp-list");
-  const hvrJmpTggl = document.getElementById("hvr-jmp-btn-tggl");
-  const hvrJmpList = document.getElementById("hvr-jmp-list");
+  const jmpList = ElStore.get(EL_ID_LIST.jmpList);
+  const hvrJmpTggl = ElStore.get(EL_ID_LIST.hvrJmpBtnTggl);
+  const hvrJmpList = ElStore.get(EL_ID_LIST.hvrJmpList);
 
   jmpList.innerHTML = "";
   hvrJmpList.innerHTML = "";
 
-  for (const target in TARGET_LIST) {
+  for (let i = 0; i < JMP_BTN_ATTRIBUTES.length; i++) {
+    const target = JMP_BTN_ATTRIBUTES[i];
+
     const jmpBtn = document.createElement("button");
     const hvrJmpBtn = document.createElement("button");
-    jmpBtn.textContent = JUMP_BUTTON_NAMES[target];
-    hvrJmpBtn.innerHTML = HOVER_JUMP_BUTTON_ICONS[target];
+
+    jmpBtn.textContent = target.jmpName;
+    hvrJmpBtn.innerHTML = target.hvrIcon;
+
     jmpBtn.className = "jmp-btn";
     hvrJmpBtn.className = "hvr-jmp-btn";
-    jmpBtn.dataset.jump = TARGET_LIST[target];
-    hvrJmpBtn.dataset.jump = TARGET_LIST[target];
+
+    jmpBtn.dataset.jump = target.target;
+    hvrJmpBtn.dataset.jump = target.target;
+
     jmpList.appendChild(jmpBtn);
     hvrJmpList.appendChild(hvrJmpBtn);
+
     jmpBtn.addEventListener("click", jumpTo);
     hvrJmpBtn.addEventListener("click", jumpTo);
 
@@ -117,72 +202,96 @@ function setJumps() {
     hvrJmpList.appendChild(hr);
   }
 
-  // hvrJmpList.removeChild(hvrJmpList.lastElementChild); // Get rid of that other hr - not active atm, not sure if I like it better with or without
-  hvrJmpList.dataset.state = "closed";
+  // Get what the height should be theoretically
+  hvrJmpList.style = "height: fit-content";
+  ElAttributes.hvrJmpListHeight = hvrJmpList.offsetHeight;
+  hvrJmpList.style = ""; // Then pretend nothing ever happened
+
+  hvrJmpList.dataset.state = ElAttributes.hvrJmpBtnClosed;
   hvrJmpTggl.addEventListener("click", expandHoverJumpList);
 }
 
+/* --------------------------------- BUTTON FUNCTIONS --------------------------------- */
+
 function jumpTo(e) {
   e.preventDefault();
+
   const jump = e.currentTarget.dataset.jump;
-  const target = document.getElementById(jump);
+  const targetEl = ElStore.get(jump);
 
-  if (target) {
+  if (targetEl) {
+    targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight / 2}px`;
     history.pushState(null, "", `#${jump}`);
-
-    target.scrollIntoView({ behavior: "smooth" });
+    targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
   }
 }
 
 function expandHoverJumpList(e) {
   e.preventDefault();
 
-  const target = document.getElementById("hvr-jmp-list");
+  const targetEl = ElStore.get(EL_ID_LIST.hvrJmpList);
   const tgglBtn = e.currentTarget;
 
-  if (target.dataset.state === HOVER_JUMP_BUTTON_STATES.open) {
-    target.style = "";
+  if (targetEl.dataset.state === ElAttributes.hvrJmpBtnOpen) {
+    targetEl.style = "";
     tgglBtn.classList.remove("active");
-    target.dataset.state = HOVER_JUMP_BUTTON_STATES.closed;
+    targetEl.dataset.state = ElAttributes.hvrJmpBtnClosed;
   } else {
-    target.style = `height: ${JUMP_BUTTON_NAMES.length * 4.5}rem; margin-bottom: 1rem; z-index: 6;`;
+    targetEl.style = `height: ${ElAttributes.hvrJmpListHeight}px; margin-bottom: 0.5rem; z-index: 6;`;
     tgglBtn.classList.add("active");
-    target.dataset.state = HOVER_JUMP_BUTTON_STATES.open;
+    targetEl.dataset.state = ElAttributes.hvrJmpBtnOpen;
   }
 }
 
+/* --------------------------------- MAIN FUNCTION --------------------------------- */
+
 document.addEventListener("DOMContentLoaded", () => {
+  // GetElementById() for every entry in EL_ID_LIST
+  GetAllElements();
+
+  // Setup for displaying club members, jumping to sections
   addMembers();
-
-  const targets = new Map([
-    ["outro-content", false],
-    ["footer", false],
-  ]);
-
-  for (const target of TARGET_LIST) {
-    targets.set(target, false);
-  }
-
   setJumps();
 
-  const footerDetails = document.getElementById("ftr-disclaimer-details");
-  const hvrJmpCont = document.getElementById("hvr-jmp-container");
+  const footerDetails = ElStore.get(EL_ID_LIST.ftrDisclaimerDetails); // Literally just for the event listener
 
+  // Setup observer map
+  ObTargets.set(EL_ID_LIST.ftr, {
+    callback(el) {
+      moveHoverJumpList();
+    },
+    cleanup(el) {
+      ElStore.get(EL_ID_LIST.hvrJmpCont).style = "";
+      this.viewed = false;
+      console.log(ObTargets.get(EL_ID_LIST.ftr));
+    },
+    viewed: false,
+  });
+  for (const target of DEFAULT_OBSERVER_TARGET_LIST) {
+    ObTargets.set(target, {
+      callback(el) {
+        applyActiveClass(el);
+      },
+      cleanup(el) {
+        return;
+      },
+      viewed: false,
+    });
+  }
+
+  // Create observer and then observe - still need to set proper cleanup functions
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         const id = entry.target.id;
-        if (
-          !entry.isIntersecting &&
-          id === FOOTER_ID &&
-          targets.get(FOOTER_ID)
-        ) {
-          targets.set(id, false);
-          entry.target.classList.remove("active");
+        const curTarget = ObTargets.get(id);
+
+        if (!entry.isIntersecting || curTarget.viewed) {
+          curTarget.cleanup(entry.target);
+        } else {
+          curTarget.callback(entry.target);
+          curTarget.viewed = true;
         }
-        if (!entry.isIntersecting || targets.get(id)) return;
-        applyObservation(entry.target);
-        targets.set(id, true);
       }
     },
     {
@@ -190,30 +299,33 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   );
 
-  targets.forEach((_, id) => {
-    const el = document.getElementById(id);
+  ObTargets.forEach((_, id) => {
+    const el = ElStore.get(id);
     if (el) observer.observe(el);
   });
 
+  // Add event listener to make sure hover jump list does not cover the footer
   footerDetails.addEventListener("toggle", () => {
-    if (footerDetails.open) {
-      hvrJmpCont.style.bottom = `${footerDetails.offsetHeight + 40}px`;
-      footerDetails.scrollIntoView({ behavior: "smooth", block: "end" });
-    } else {
-      hvrJmpCont.style.bottom = "";
-    }
+    moveHoverJumpList();
+
+    ElStore.get(EL_ID_LIST.ftrDisclaimerDetails).scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
   });
 
+  // Scroll to the given element if user enters website with a # - added the window.scrollTo part so that all observer animations are guaranteed
   if (window.location.hash) {
     const id = window.location.hash.substring(1);
-    const target = document.getElementById(id);
-    if (target) {
+    const targetEl = ElStore.get(id);
+    if (targetEl) {
+      targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight / 2}px`;
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: "instant",
       });
-      target.scrollIntoView({ behavior: "smooth" });
+      targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }
 });
