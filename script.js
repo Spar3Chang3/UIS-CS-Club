@@ -1,14 +1,84 @@
+const MEMBER_DATA_PATH = "/assets/TeamMembers.json";
+const MEMBER_WRAPPER_ID = "member-container";
+const IS_MOBILE = window.matchMedia("only screen and (max-width: 768px)");
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 function applyObservation(target) {
   target.classList.add("active");
 }
 
+async function addMembers() {
+  const wrapper = document.getElementById(MEMBER_WRAPPER_ID);
+  if (!wrapper) {
+    console.warn(`Wrapper element with id '${MEMBER_WRAPPER_ID}' not found.`);
+    const warning = document.createElement("h3");
+    warning.textContent = `Wrapper element with id '${MEMBER_WRAPPER_ID}' not found.`;
+    warning.style = "color: lightcoral";
+    document.getElementById("member-content").appendChild(warning);
+  } else {
+    wrapper.innerHTML = "";
+  }
+
+  fetch(MEMBER_DATA_PATH)
+    .then((res) => {
+      return res.json();
+    })
+    .then((memberData) => {
+      let index = 0;
+      for (const member of memberData) {
+        const card = document.createElement("div");
+        if (!REDUCED_MOTION.matches) {
+          card.style.visibility = "hidden";
+          card.style.animation = "fade-fly-in 0.5s ease forwards";
+          card.style.animationDelay = `${100 * index}ms`;
+        } else {
+          card.style.visibility = "visible";
+          card.style.animation = "none";
+          card.style.animationDelay = "none";
+        }
+        card.className = "team-member-card";
+
+        // Portrait
+        const img = document.createElement("img");
+        img.src = member.portraitSrc;
+        img.alt = `${member.name}'s portrait`;
+        img.className = "team-member-portrait";
+
+        // Name
+        const nameEl = document.createElement("h3");
+        nameEl.textContent = member.name;
+        nameEl.className = "team-member-name";
+
+        // Description
+        const descEl = document.createElement("p");
+        descEl.textContent = member.description;
+        descEl.className = "team-member-description";
+
+        // Append all
+        card.appendChild(img);
+        card.appendChild(nameEl);
+        card.appendChild(descEl);
+        wrapper.appendChild(card);
+
+        index++;
+      }
+    })
+    .catch((err) => {
+      wrapper.innerHTML = "";
+      const error = document.createElement("h3");
+      error.style = "color: lightcoral";
+      error.textContent = `Encountered ${err} while trying to add members`;
+      wrapper.appendChild(error);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const isMobile = window.matchMedia("only screen and (max-width: 768px)");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  addMembers();
 
   const targets = new Map([
     ["promotional-content", false],
     ["schedule-content", false],
+    ["member-content", false],
   ]);
 
   const observer = new IntersectionObserver(

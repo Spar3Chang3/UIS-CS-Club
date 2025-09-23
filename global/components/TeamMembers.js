@@ -1,4 +1,4 @@
-const memberData = "/global/data/TeamMembers.json";
+const memberData = "/assets/TeamMembers.json";
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 

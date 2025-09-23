@@ -2,101 +2,21 @@
   {
     "name": "Kkremitzki",
     "description": "The fearless organizer who keeps the club running like a finely tuned script.",
-    "portraitSrc": "/global/data/images/kkremitzki.jpg"
+    "portraitSrc": "/assets/members/kkremitzki.jpg"
   },
   {
     "name": "Edward",
     "description": "Resident comedic relief — cracks jokes faster than a for-loop on caffeine. Still doesn't believe in Await though.",
-    "portraitSrc": "/global/data/images/edward.png"
+    "portraitSrc": "/assets/members/edward.png"
   },
   {
     "name": "Daryk",
     "description": "The developer who still thinks JavaScript is out to get him. Debugging his way through life.",
-    "portraitSrc": "/global/data/images/daryk.jpg"
+    "portraitSrc": "/assets/members/daryk.jpg"
   },
   {
     "name": "Brian",
     "description": "No one really knows what Brian does, but it wouldn't be the same without him.",
-    "portraitSrc": "/global/data/images/brian.jpg"
-  },
-  {
-    "name": "Zoe",
-    "description": "Security guru. Can hack your Wi-Fi just by looking at it. Paranoid, but in a lovable way.",
-    "portraitSrc": "/global/data/images/zoe.jpg"
-  },
-  {
-    "name": "Max",
-    "description": "Hardware tinkerer who insists that everything is better with LEDs — including the coffee maker.",
-    "portraitSrc": "/global/data/images/max.jpg"
-  },
-  {
-    "name": "Ivy",
-    "description": "Loves automation so much she tried to automate snack ordering. Accidentally bought 400 bags of chips.",
-    "portraitSrc": "/global/data/images/ivy.jpg"
-  },
-  {
-    "name": "Samir",
-    "description": "Master of obscure Linux distros. Installed Gentoo on a toaster. Twice.",
-    "portraitSrc": "/global/data/images/samir.jpg"
-  },
-  {
-    "name": "Alina",
-    "description": "Pixel-perfect designer with a vendetta against Comic Sans and unaligned divs.",
-    "portraitSrc": "/global/data/images/alina.jpg"
-  },
-  {
-    "name": "Marcus",
-    "description": "AI enthusiast. Still thinks Clippy had potential. Talks to ChatGPT like it’s a roommate.",
-    "portraitSrc": "/global/data/images/marcus.jpg"
-  },
-  {
-    "name": "Jess",
-    "description": "Writes documentation so good, it makes grown devs cry. Actually enjoys markdown.",
-    "portraitSrc": "/global/data/images/jess.jpg"
-  },
-  {
-    "name": "Toby",
-    "description": "Club's chaos agent. Always has 'just one quick idea' that turns into a week-long project.",
-    "portraitSrc": "/global/data/images/toby.jpg"
-  },
-  {
-    "name": "Lena",
-    "description": "Backend wizard. Speaks fluent SQL, curses at ORMs, and laughs in schema validation.",
-    "portraitSrc": "/global/data/images/lena.jpg"
-  },
-  {
-    "name": "Raj",
-    "description": "DevOps demigod. Has a terminal open in every tab and can summon Kubernetes from memory.",
-    "portraitSrc": "/global/data/images/raj.jpg"
-  },
-  {
-    "name": "Nina",
-    "description": "Front-end perfectionist. Once filed a bug report because a pixel was off. She was right.",
-    "portraitSrc": "/global/data/images/nina.jpg"
-  },
-  {
-    "name": "Kai",
-    "description": "The quiet one. Only speaks when there’s a syntax error — and it’s always right.",
-    "portraitSrc": "/global/data/images/kai.jpg"
-  },
-  {
-    "name": "Victor",
-    "description": "Game dev obsessed with shaders and particles. Made a simulation of the club in Unity. It crashed.",
-    "portraitSrc": "/global/data/images/victor.jpg"
-  },
-  {
-    "name": "Ella",
-    "description": "Digital artist and meme archivist. Responsible for 90% of the club's inside jokes.",
-    "portraitSrc": "/global/data/images/ella.jpg"
-  },
-  {
-    "name": "Tomoko",
-    "description": "Database whisperer. Knows exactly where every lost table went. Probably hiding behind a left join.",
-    "portraitSrc": "/global/data/images/tomoko.jpg"
-  },
-  {
-    "name": "Leo",
-    "description": "Brings donuts. Also knows C++. But mostly brings donuts.",
-    "portraitSrc": "/global/data/images/leo.jpg"
+    "portraitSrc": "/assets/members/brian.jpg"
   }
 ]
