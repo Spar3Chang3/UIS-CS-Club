@@ -1,4 +1,4 @@
-const MEMBER_DATA_PATH = "/assets/TeamMembers.json";
+const MEMBER_DATA_PATH = "/assets/TeamMembers.json"; // Adding this commend to push again, EDWARD
 const MEMBER_WRAPPER_ID = "member-container";
 const IS_MOBILE = window.matchMedia("only screen and (max-width: 768px)");
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = window.location.hash.substring(1);
     const target = document.getElementById(id);
     if (target) {
-      target.scrollIntoView({ behavior: "smooth",  });
+      target.scrollIntoView({ behavior: "smooth" });
     }
   }
 });
