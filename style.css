@@ -7,8 +7,8 @@
 }
 
 :root {
-    --primary-color: #4a5ffa;
-    --secondary-color: #72b8fe;
+    --primary-color: rgba(74, 95, 250, 0.8);
+    --secondary-color: rgba(114, 184, 254, 0.8);
     --tertiary-color: some color;
 
     --banner-color: #2c3398;
@@ -20,10 +20,18 @@
 
     --box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 
+    --bg-dots: #d3d3d3;
+
     @media only screen and (prefers-color-scheme: dark) {
         --text-color: #fff;
         --background-color: #121417;
         --box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+        --bg-dots: #4c4e52;
+    }
+
+    @media (prefers-contrast: more) {
+        --primary-color: rgba(74, 95, 250, 1);
+        --secondary-color: rgba(114, 184, 254, 1);
     }
 }
 
@@ -32,6 +40,7 @@ html {
     font-family:
         JetBrains, "sans-serif", "Roboto", "sans-serif", "Helvetica",
         "sans-serif";
+    scroll-behavior: smooth;
 }
 
 body {
@@ -41,7 +50,11 @@ body {
     margin: 0 auto;
     height: 100%;
     width: 100%;
+    max-height: fit-content;
+    overflow-x: hidden;
     background-color: var(--background-color);
+    background-image: radial-gradient(var(--bg-dots) 2px, transparent 2px);
+    background-size: 4rem 4rem;
     font-family:
         JetBrains, "sans-serif", "Roboto", "sans-serif", "Helvetica",
         "sans-serif";
@@ -68,6 +81,7 @@ h2 {
 
 p {
     font-size: 1.5rem;
+    width: 95%;
 }
 
 .hero-intro-overlay {
@@ -89,12 +103,15 @@ p {
 }
 
 .hero-intro-text-wrapper {
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
     height: 100dvh;
     width: 100dvw;
+    justify-content: center;
+    align-items: center;
     z-index: 2;
     opacity: 0;
+    gap: 2rem;
     animation: intro-animation 0.3s linear forwards;
 }
 
@@ -106,18 +123,71 @@ p {
     justify-content: center;
     align-items: center;
     background-color: var(--primary-color);
-    &h1 {
-        color: white;
-    }
     padding: 1rem 2rem;
 }
 
-.content {
+.hero-intro-text h1 {
+    color: white;
+}
+
+.jmp-list {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 1rem;
+}
+
+.jmp-btn {
+    border: none;
+    background-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    color: white;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.jmp-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.content,
+.member-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 30vh;
+    max-height: 100%;
     width: 90%;
     padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    scroll-margin-top: 30vh;
+}
+
+.content::before,
+.content::after,
+.member-content::before,
+.member-content::after {
+    content: "";
+    display: block;
+    height: 0; /* start collapsed */
+    pointer-events: none; /* don’t block clicks */
+}
+
+.content::before,
+.member-content::before {
+    margin-top: 24rem; /* reserve vertical space equal to deepest translation */
+    transition: margin-top 300ms ease;
+}
+
+.content.active::before,
+.member-content.active::before {
+    margin-top: 0; /* collapse once animations bring children back */
 }
 
 .content :nth-child(1) {
@@ -163,7 +233,35 @@ p {
     transform: translateY(0);
 }
 
+.separator {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    width: 100%;
+    min-height: 20vh;
+    max-height: fit-content;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.separator hr {
+    width: 75%;
+    height: 0.1rem;
+    background-color: var(--banner-color);
+    border: none;
+}
+
+.separator img {
+    height: 8rem;
+    width: 8rem;
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+}
+
 .img-lnk {
+    position: relative;
     text-decoration: none;
     height: 5rem;
     width: 5rem;
@@ -172,12 +270,18 @@ p {
     cursor: pointer;
 }
 
-.member-content {
-    display: flex;
-    flex-direction: column;
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
     height: 100%;
-    width: 90%;
-    padding: 1rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+
+.contact-container p {
+    font-size: 1.5rem;
+    width: fit-content;
 }
 
 .member-content :nth-child(1) {

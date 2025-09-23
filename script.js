@@ -2,6 +2,13 @@ const MEMBER_DATA_PATH = "/assets/TeamMembers.json";
 const MEMBER_WRAPPER_ID = "member-container";
 const IS_MOBILE = window.matchMedia("only screen and (max-width: 768px)");
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
+const TARGET_LIST = [
+  "promotional-content",
+  "schedule-content",
+  "contact-content",
+  "member-content",
+];
+const JUMP_BUTTON_NAMES = ["Promotion", "Schedule", "Contact", "Members"];
 
 function applyObservation(target) {
   target.classList.add("active");
@@ -72,14 +79,42 @@ async function addMembers() {
     });
 }
 
+function setJumps() {
+  const jmpList = document.getElementById("jmp-list");
+  jmpList.innerHTML = "";
+
+  for (const target in TARGET_LIST) {
+    const jmpBtn = document.createElement("button");
+    jmpBtn.textContent = JUMP_BUTTON_NAMES[target];
+    jmpBtn.className = "jmp-btn";
+    jmpBtn.dataset.jump = TARGET_LIST[target];
+    jmpList.appendChild(jmpBtn);
+    jmpBtn.addEventListener("click", jumpTo);
+  }
+}
+
+function jumpTo(e) {
+  e.preventDefault();
+  const jump = e.target.dataset.jump;
+  const target = document.getElementById(jump);
+
+  if (target) {
+    history.pushState(null, "", `#${jump}`);
+
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   addMembers();
 
-  const targets = new Map([
-    ["promotional-content", false],
-    ["schedule-content", false],
-    ["member-content", false],
-  ]);
+  const targets = new Map([["outro-content", false]]);
+
+  for (const target of TARGET_LIST) {
+    targets.set(target, false);
+  }
+
+  setJumps();
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -99,4 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const el = document.getElementById(id);
     if (el) observer.observe(el);
   });
+
+  if (window.location.hash) {
+    const id = window.location.hash.substring(1);
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth",  });
+    }
+  }
 });
