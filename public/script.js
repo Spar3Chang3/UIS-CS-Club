@@ -145,7 +145,7 @@ function expandHoverJumpList(e) {
     tgglBtn.classList.remove("active");
     target.dataset.state = HOVER_JUMP_BUTTON_STATES.closed;
   } else {
-    target.style = `height: ${JUMP_BUTTON_NAMES.length * 4.25}rem; margin-bottom: 1rem; z-index: 6;`;
+    target.style = `height: ${JUMP_BUTTON_NAMES.length * 4.5}rem; margin-bottom: 1rem; z-index: 6;`;
     tgglBtn.classList.add("active");
     target.dataset.state = HOVER_JUMP_BUTTON_STATES.open;
   }

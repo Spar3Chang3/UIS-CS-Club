@@ -49,7 +49,11 @@
 html {
     margin: 0 auto;
     font-family:
-        "JetBrains Semi", "sans-serif", "Roboto", "sans-serif", "Helvetica",
+        JetBrains Semi,
+        "sans-serif",
+        Roboto,
+        "sans-serif",
+        Helvetica,
         "sans-serif";
     scroll-behavior: smooth;
 }
@@ -72,7 +76,11 @@ body {
     background-image: radial-gradient(var(--bg-dots) 2px, transparent 2px);
     background-size: 4rem 4rem;
     font-family:
-        "JetBrains Semi", "sans-serif", "Roboto", "sans-serif", "Helvetica",
+        JetBrains Semi,
+        "sans-serif",
+        Roboto,
+        "sans-serif",
+        Helvetica,
         "sans-serif";
 }
 
@@ -87,7 +95,13 @@ main {
 }
 
 h2 {
-    font-family: JetBrains, sans-serif;
+    font-family:
+        JetBrains Bold,
+        "sans-serif",
+        Roboto,
+        "sans-serif",
+        Helvetica,
+        "sans-serif";
     background-color: var(--banner-color);
     padding: 0 1rem;
     width: 100%;
@@ -104,7 +118,21 @@ p {
 
 strong {
     font-family:
-        "JetBrains Bold", "sans-serif", "Roboto", "sans-serif", "Helvetica",
+        JetBrains Bold,
+        "sans-serif",
+        Roboto,
+        "sans-serif",
+        Helvetica,
+        "sans-serif";
+}
+
+button {
+    font-family:
+        JetBrains Semi,
+        "sans-serif",
+        Roboto,
+        "sans-serif",
+        Helvetica,
         "sans-serif";
 }
 
@@ -597,5 +625,13 @@ strong {
     p,
     a {
         font-size: 1.2rem;
+    }
+}
+
+@media only screen and (max-width: 1920px) {
+    .hvr-jmp-container {
+        scale: 1.5;
+        right: 2rem;
+        bottom: 2rem;
     }
 }
