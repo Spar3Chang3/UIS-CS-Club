@@ -1,6 +1,14 @@
 @font-face {
-    font-family: "JetBrains";
-    src: url("/assets/JetBrainsMono-SemiBold.woff2") format("woff");
+    font-family: "JetBrains Semi";
+    src: url("/assets/fonts/JetBrainsMono-SemiBold.woff2") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "JetBrains Bold";
+    src: url("/assets/fonts/JetBrainsMono-Bold.woff2") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -8,39 +16,47 @@
 
 :root {
     --primary-color: rgba(74, 95, 250, 0.8);
-    --secondary-color: rgba(114, 184, 254, 0.8);
+    --secondary-color: rgba(44, 70, 153, 0.8);
     --tertiary-color: some color;
 
     --banner-color: #2c3398;
 
-    --background-color: whitesmoke;
+    --bg-clr: whitesmoke;
+    --border-color: rgba(114, 184, 254, 0.8);
 
     --text-color: #000;
     --hyperlink-color: #72b8fe;
 
-    --box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+    --box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    --svg-fill: #121417;
 
     --bg-dots: #d3d3d3;
 
     @media only screen and (prefers-color-scheme: dark) {
         --text-color: #fff;
-        --background-color: #121417;
-        --box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+        --bg-clr: #121417;
+        --box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+        --svg-fill: whitesmoke;
         --bg-dots: #4c4e52;
     }
 
     @media (prefers-contrast: more) {
         --primary-color: rgba(74, 95, 250, 1);
-        --secondary-color: rgba(114, 184, 254, 1);
+        --secondary-color: rgba(44, 70, 153, 1);
     }
 }
 
 html {
     margin: 0 auto;
     font-family:
-        JetBrains, "sans-serif", "Roboto", "sans-serif", "Helvetica",
+        "JetBrains Semi", "sans-serif", "Roboto", "sans-serif", "Helvetica",
         "sans-serif";
     scroll-behavior: smooth;
+}
+
+html,
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -52,11 +68,11 @@ body {
     width: 100%;
     max-height: fit-content;
     overflow-x: hidden;
-    background-color: var(--background-color);
+    background-color: var(--bg-clr);
     background-image: radial-gradient(var(--bg-dots) 2px, transparent 2px);
     background-size: 4rem 4rem;
     font-family:
-        JetBrains, "sans-serif", "Roboto", "sans-serif", "Helvetica",
+        "JetBrains Semi", "sans-serif", "Roboto", "sans-serif", "Helvetica",
         "sans-serif";
 }
 
@@ -77,6 +93,8 @@ h2 {
     width: 100%;
     color: whitesmoke;
     font-size: 2.5rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
 }
 
 p {
@@ -84,19 +102,187 @@ p {
     width: 95%;
 }
 
+strong {
+    font-family:
+        "JetBrains Bold", "sans-serif", "Roboto", "sans-serif", "Helvetica",
+        "sans-serif";
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    place-items: center;
+    height: fit-content;
+    width: 100vw;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+    margin-top: 10vh;
+    border-top: 0.2rem solid var(--border-color);
+    background-color: var(--bg-clr);
+}
+
+.footer p {
+    font-size: unset;
+}
+
+.footer.active .hvr-jmp-container {
+    bottom: 8rem;
+}
+
+.ftr-copyright,
+.ftr-disclaimer {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.ftr-disclaimer details {
+    cursor: pointer;
+    transition: height 0.4s ease;
+}
+
+.ftr-lnks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 1rem;
+}
+
+.ftr-lnks svg {
+    fill: var(--svg-fill);
+    object-fit: contain;
+    height: 4rem;
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.ftr-lnks svg:hover {
+    transform: scale(1.1);
+}
+
+.ftr-lnks img {
+    object-fit: contain;
+    height: 4rem;
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.ftr-lnks img:hover {
+    transform: scale(1.1);
+}
+
+.hvr-jmp-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: 4rem;
+    bottom: 1rem;
+    right: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding: 0.25rem;
+    z-index: 5;
+    overflow: visible;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    border: 0.1rem dashed var(--border-color);
+    transition: bottom 0.3s ease;
+}
+
+.hvr-jmp-btn,
+.hvr-jmp-btn-tggl {
+    border: none;
+    padding: 0.25rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease;
+}
+
+.hvr-jmp-btn-tggl {
+    z-index: 6;
+}
+
+.hvr-jmp-btn-tggl svg {
+    height: 3rem;
+    width: 3rem;
+    padding: 0;
+    margin: 0;
+    fill: var(--svg-fill);
+    pointer-events: none;
+}
+
+.hvr-jmp-btn svg {
+    height: 3rem;
+    width: 3rem;
+    padding: 0;
+    margin: 0;
+    stroke: var(--svg-fill);
+    pointer-events: none;
+}
+
+.hvr-jmp-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.hvr-jmp-btn-tggl:hover {
+    background-color: var(--border-color);
+}
+
+.hvr-jmp-btn-tggl.active {
+    background-color: var(--border-color);
+}
+
+.hvr-jmp-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 0;
+    width: 100%;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    transition:
+        height 0.4s ease,
+        margin 0.4s ease;
+    background-color: transparent;
+    border-radius: 4px;
+    z-index: 5;
+}
+
+.hvr-jmp-list hr {
+    height: 0.1rem;
+    width: 90%;
+    padding: 0;
+    margin: 0.12rem 0 0.12rem 0;
+    border: none;
+    background-color: var(--border-color);
+}
+
 .hero-intro-overlay {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
-    width: 100dvw;
+    height: 100vh;
+    width: 100vw;
 }
 
 .hero-intro-overlay > img {
     position: absolute;
     display: block;
     object-fit: cover;
-    height: 100dvh;
-    width: 100dvw;
+    height: 100vh;
+    width: 100vw;
     top: 0;
     left: 0;
     z-index: 1;
@@ -105,8 +291,8 @@ p {
 .hero-intro-text-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
-    width: 100dvw;
+    height: 100vh;
+    width: 100vw;
     justify-content: center;
     align-items: center;
     z-index: 2;
@@ -124,6 +310,9 @@ p {
     align-items: center;
     background-color: var(--primary-color);
     padding: 1rem 2rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 4px;
+    border: 0.2rem solid var(--border-color);
 }
 
 .hero-intro-text h1 {
@@ -145,10 +334,12 @@ p {
     border: none;
     background-color: var(--primary-color);
     padding: 0.5rem 1rem;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: white;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
 }
 
 .jmp-btn:hover {
@@ -159,14 +350,19 @@ p {
 .member-content {
     display: flex;
     flex-direction: column;
-    min-height: 30vh;
+    min-height: 20vh;
     max-height: 100%;
-    width: 90%;
+    width: 95%;
     padding: 1rem;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     position: relative;
     overflow: hidden;
     align-items: center;
     scroll-margin-top: 30vh;
+    backdrop-filter: blur(4px);
+    border: 0.2rem solid var(--border-color);
+    border-radius: 4px;
 }
 
 .content::before,
@@ -247,27 +443,38 @@ p {
 
 .separator hr {
     width: 75%;
-    height: 0.1rem;
+    height: 0.25rem;
     background-color: var(--banner-color);
     border: none;
 }
 
-.separator img {
+.separator-svg {
     height: 8rem;
     width: 8rem;
     object-fit: contain;
     padding: 0;
     margin: 0;
+    fill: var(--svg-fill);
 }
 
 .img-lnk {
     position: relative;
     text-decoration: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.img-lnk:hover {
+    transform: scale(1.1);
+}
+
+.lnk-img {
     height: 5rem;
     width: 5rem;
     object-fit: contain;
-    padding: 0.5rem;
-    cursor: pointer;
+    display: block;
 }
 
 .contact-container {
@@ -325,7 +532,11 @@ p {
     place-items: center;
     padding: 1rem;
     border-radius: 12px;
-    background: var(--primary-color);
+    background: linear-gradient(
+        to bottom right,
+        var(--primary-color),
+        var(--secondary-color)
+    );
     color: white;
     max-width: 15rem;
     height: 20rem;
@@ -381,10 +592,6 @@ p {
     h2 {
         font-size: 2rem;
         padding: 0.5rem;
-    }
-
-    footer {
-        text-align: center;
     }
 
     p,

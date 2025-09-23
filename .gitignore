@@ -1,4 +1,3 @@
 #WebStorm
 /.idea
 
-#Should we get rid of package.json? idk if it's really needed it's only there because I installed serve
