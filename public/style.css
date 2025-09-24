@@ -15,23 +15,37 @@
 }
 
 :root {
+    /* --- Main Colors --- */
     --primary-color: rgba(74, 95, 250, 0.8);
     --secondary-color: rgba(44, 70, 153, 0.8);
-    --tertiary-color: some color;
 
     --banner-color: #2c3398;
 
     --bg-clr: whitesmoke;
-    --border-color: rgba(114, 184, 254, 0.8);
-    --effct-bg: transparent;
 
+    /* --- Text Colors --- */
     --text-color: #000;
     --hyperlink-color: #72b8fe;
 
+    /* --- Aesthetic Colors --- */
     --box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    --svg-fill: #121417;
 
+    /* --- Effect Colors --- */
+    --svg-fill: #121417;
+    --border-color: rgba(114, 184, 254, 0.8);
     --bg-dots: #d3d3d3;
+    --effct-bg: transparent;
+
+    /* --- Sizing --- */
+    --prgph-size: 1.5rem;
+    --small-size: 0.9rem;
+    --subtle-size: 1.25rem;
+
+    /* --- Interaction --- */
+    --mouse-angle: 90deg;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --trans-delay: 0ms;
 
     @media only screen and (prefers-color-scheme: dark) {
         --text-color: #fff;
@@ -111,11 +125,11 @@ h2 {
     font-size: 2.5rem;
     box-shadow: var(--box-shadow);
     border-radius: 8px;
-    margin: 0;
+    margin: 0 0 1rem 0;
 }
 
 p {
-    font-size: 1.5rem;
+    font-size: var(--prgph-size);
     width: 95%;
 }
 
@@ -127,6 +141,10 @@ strong {
         "sans-serif",
         Helvetica,
         "sans-serif";
+}
+
+small {
+    font-size: var(--small-size);
 }
 
 button {
@@ -147,7 +165,6 @@ button {
     width: 100vw;
     padding: 2rem 1rem;
     box-sizing: border-box;
-    margin-top: 10vh;
     border-top: 0.2rem solid var(--border-color);
     background-color: var(--bg-clr);
 }
@@ -167,6 +184,7 @@ button {
 
 .ftr-disclaimer summary {
     cursor: pointer;
+    font-size: 1rem;
 }
 
 .ftr-lnks {
@@ -224,7 +242,9 @@ button {
 }
 
 .hvr-jmp-btn,
-.hvr-jmp-btn-tggl {
+.hvr-jmp-btn-tggl,
+.hvr-jmp-btn-top,
+.hvr-jmp-btn-btm {
     border: none;
     padding: 0.25rem;
     height: 3.5rem;
@@ -241,6 +261,21 @@ button {
     z-index: 6;
 }
 
+.hvr-jmp-btn-top,
+.hvr-jmp-btn-btm {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+.hvr-jmp-btn-top {
+    margin-bottom: -0.75rem;
+}
+
+.hvr-jmp-btn-btm {
+    margin-top: -0.75rem;
+}
+
 .hvr-jmp-btn-tggl svg {
     height: 3rem;
     width: 3rem;
@@ -248,6 +283,20 @@ button {
     margin: 0;
     fill: var(--svg-fill);
     pointer-events: none;
+}
+
+.hvr-jmp-btn-top svg,
+.hvr-jmp-btn-btm svg {
+    height: 3.5rem;
+    width: 3.5rem;
+    padding: 0;
+    margin: 0;
+    stroke: var(--secondary-color);
+    fill: var(--primary-color);
+    pointer-events: none;
+    transition:
+        fill 0.3s ease,
+        stroke 0.3s ease;
 }
 
 .hvr-jmp-btn svg {
@@ -265,6 +314,12 @@ button {
 
 .hvr-jmp-btn-tggl:hover {
     background-color: var(--border-color);
+}
+
+.hvr-jmp-btn-top:hover svg,
+.hvr-jmp-btn-btm:hover svg {
+    fill: var(--primary-color);
+    stroke: var(--svg-fill);
 }
 
 .hvr-jmp-btn-tggl.active {
@@ -381,13 +436,14 @@ button {
     max-height: fit-content;
     width: 95%;
     padding: 1.5rem 1rem;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
     position: relative;
     overflow: hidden;
     align-items: center;
     backdrop-filter: blur(4px);
     border: 0.2rem solid var(--border-color);
+    box-shadow: var(--box-shadow);
     border-radius: 6px;
 }
 
@@ -463,7 +519,7 @@ button {
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
     width: 100%;
-    min-height: 20vh;
+    min-height: 15vh;
     max-height: fit-content;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
@@ -493,6 +549,7 @@ button {
     cursor: pointer;
     display: inline-block;
     transition: transform 0.3s ease;
+    z-index: 4;
 }
 
 .img-lnk:hover {
@@ -533,14 +590,6 @@ button {
     transform: translateY(0);
 }
 
-.member-content .member-container .team-member-card {
-    animation-play-state: paused !important;
-}
-
-.member-content.active .member-container .team-member-card {
-    animation-play-state: running !important;
-}
-
 .member-container {
     position: relative;
     display: flex;
@@ -562,7 +611,7 @@ button {
     padding: 1rem;
     border-radius: 12px;
     background: linear-gradient(
-        to bottom right,
+        var(--mouse-angle),
         var(--primary-color),
         var(--secondary-color)
     );
@@ -572,6 +621,26 @@ button {
     text-align: center;
     box-shadow: var(--box-shadow);
     margin: 1rem;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    will-change: transform, background, opacity;
+    transition:
+        transform 0.3s ease,
+        background 0.3s linear,
+        opacity 0.5s ease;
+    transition-delay: var(--trans-delay);
+}
+
+.member-content .member-container .team-member-card {
+    opacity: 0;
+    transform: perspective(600px) translateY(100%) rotateX(var(--tilt-x))
+        rotateY(var(--tilt-y));
+}
+
+.member-content.active .member-container .team-member-card {
+    opacity: 1;
+    transform: perspective(600px) translateY(0) rotateX(var(--tilt-x))
+        rotateY(var(--tilt-y));
 }
 
 .team-member-portrait {
@@ -593,17 +662,34 @@ button {
     color: whitesmoke;
 }
 
-@keyframes fade-fly-in {
-    from {
-        visibility: hidden;
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    to {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-    }
+.url-settings {
+    display: grid;
+    place-items: center;
+    max-height: fit-content;
+    width: 95%;
+    padding: 1.5rem 1rem;
+    margin-top: 5vh;
+    margin-bottom: 1vh;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+}
+
+.clr-btn {
+    padding: 0.5rem 1rem;
+    font-size: var(--subtle-size);
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease;
+}
+
+.clr-btn:hover {
+    background-color: var(--secondary-color);
 }
 
 @keyframes intro-animation {
@@ -614,6 +700,12 @@ button {
     to {
         opacity: 1;
         backdrop-filter: blur(12px);
+    }
+}
+
+@keyframes change-delay {
+    to {
+        transition-delay: 0;
     }
 }
 
@@ -629,9 +721,59 @@ button {
     }
 }
 
-@media only screen and (max-width: 1920px) {
+@media only screen and (min-width: 1920px) {
+    .hvr-jmp-container {
+        transform: scale(1.25);
+        transform-origin: bottom right;
+    }
+}
+
+@media only screen and (min-width: 2560px) {
     .hvr-jmp-container {
         transform: scale(1.5);
         transform-origin: bottom right;
+    }
+}
+
+@media only screen and (min-width: 3840px) {
+    .hvr-jmp-container {
+        transform: scale(2);
+        transform-origin: bottom right;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .content,
+    .member-content,
+    .content :nth-child(1),
+    .content :nth-child(2),
+    .content :nth-child(3),
+    .content :nth-child(4) {
+        opacity: 1;
+        transform: translateY(0);
+        animation-delay: 0ms;
+    }
+    .content::before,
+    .member-content::before {
+        margin: 0;
+    }
+    * {
+        transition: none !important;
+    }
+    *:not(svg):not(img):not(svg *) {
+        transform: none !important;
+    }
+    .ftr-lnks:hover svg,
+    .ftr-lnks:hover img {
+        transform: scale(1);
+    }
+    .team-member-card {
+        opacity: 1;
+        visibility: visible;
+    }
+    .hero-intro-text-wrapper {
+        animation: none;
+        opacity: 1;
+        backdrop-filter: blur(12px);
     }
 }

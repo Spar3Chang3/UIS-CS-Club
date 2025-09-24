@@ -10,6 +10,9 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)"); //
 const WINDOW_HEIGHT = window.innerHeight;
 
 const EL_ID_LIST = {
+  // Top
+  introCont: "intro-container",
+
   // Observer Sections
   promoContent: "promotional-content",
   schedContent: "schedule-content",
@@ -25,6 +28,7 @@ const EL_ID_LIST = {
   hvrJmpCont: "hvr-jmp-container",
   hvrJmpList: "hvr-jmp-list",
   hvrJmpBtnTggl: "hvr-jmp-btn-tggl",
+  clrUrlBtn: "clr-btn",
 
   // Footer
   ftr: "footer",
@@ -43,24 +47,40 @@ const DEFAULT_OBSERVER_TARGET_LIST = [
 // Name for header buttons, icon for hover jump list, observer target list
 const JMP_BTN_ATTRIBUTES = [
   {
+    jmpName: "Top",
+    hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rectangle-rounded-top"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6h6a6 6 0 0 1 6 6v5a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-5a6 6 0 0 1 6 -6z" /></svg>`,
+    target: EL_ID_LIST.introCont,
+    ariaLabel: "Scroll to top",
+  },
+  {
     jmpName: "Promotion",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-speakerphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a.9 .9 0 0 1 1.476 .692v12.156a.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`,
     target: EL_ID_LIST.promoContent,
+    ariaLabel: "Scroll to promotion",
   },
   {
     jmpName: "Schedule",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>`,
     target: EL_ID_LIST.schedContent,
+    ariaLabel: "Scroll to schedule",
   },
   {
     jmpName: "Contact",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-discord"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M15.5 17c0 1 1.5 3 2 3c1.5 0 2.833 -1.667 3.5 -3c.667 -1.667 .5 -5.833 -1.5 -11.5c-1.457 -1.015 -3 -1.34 -4.5 -1.5l-.972 1.923a11.913 11.913 0 0 0 -4.053 0l-.975 -1.923c-1.5 .16 -3.043 .485 -4.5 1.5c-2 5.667 -2.167 9.833 -1.5 11.5c.667 1.333 2 3 3.5 3c.5 0 2 -2 2 -3" /><path d="M7 16.5c3.5 1 6.5 1 10 0" /></svg>`,
     target: EL_ID_LIST.contactContent,
+    ariaLabel: "Scroll to contact list",
   },
   {
     jmpName: "Members",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>`,
     target: EL_ID_LIST.memberContent,
+    ariaLabel: "Scroll to club members",
+  },
+  {
+    jmpName: "Bottom",
+    hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rectangle-rounded-bottom"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 18h6a6 6 0 0 0 6 -6v-5a1 1 0 0 0 -1 -1h-16a1 1 0 0 0 -1 1v5a6 6 0 0 0 6 6z" /></svg>`,
+    target: EL_ID_LIST.ftr,
+    ariaLabel: "Scroll to bottom",
   },
 ];
 
@@ -125,12 +145,11 @@ async function addMembers() {
       for (const member of memberData) {
         const card = document.createElement("div");
         if (!REDUCED_MOTION.matches) {
-          card.style.visibility = "hidden";
-          card.style.animation = "fade-fly-in 0.5s ease forwards";
-          card.style.animationDelay = `${100 * index}ms`;
+          card.style.setProperty("--trans-delay", `${100 * index}ms`);
+          card.addEventListener("mousemove", applyTransform);
+          card.addEventListener("mouseleave", resetTransform);
         } else {
-          card.style.visibility = "visible";
-          card.style.animation = "none";
+          card.style.transitionDelay = "none";
           card.style.animationDelay = "none";
         }
         card.className = "team-member-card";
@@ -177,7 +196,34 @@ function setJumps() {
   jmpList.innerHTML = "";
   hvrJmpList.innerHTML = "";
 
-  for (let i = 0; i < JMP_BTN_ATTRIBUTES.length; i++) {
+  // Handle top and bottom buttons first
+  const topTarget = JMP_BTN_ATTRIBUTES[0];
+  const btmTarget = JMP_BTN_ATTRIBUTES[JMP_BTN_ATTRIBUTES.length - 1];
+
+  const hvrTopBtn = document.createElement("button");
+  const hvrBtmBtn = document.createElement("button");
+
+  hvrTopBtn.innerHTML = topTarget.hvrIcon;
+  hvrBtmBtn.innerHTML = btmTarget.hvrIcon;
+
+  hvrTopBtn.className = "hvr-jmp-btn-top";
+  hvrBtmBtn.className = "hvr-jmp-btn-btm";
+
+  hvrTopBtn.dataset.jump = topTarget.target;
+  hvrBtmBtn.dataset.jump = btmTarget.target;
+
+  hvrTopBtn.ariaLabel = topTarget.ariaLabel;
+  hvrBtmBtn.ariaLabel = btmTarget.ariaLabel;
+
+  const topHr = document.createElement("hr");
+
+  hvrJmpList.appendChild(hvrTopBtn);
+  hvrJmpList.appendChild(topHr);
+
+  hvrTopBtn.addEventListener("click", jumpTo);
+
+  // Then do the rest
+  for (let i = 1; i < JMP_BTN_ATTRIBUTES.length - 1; i++) {
     const target = JMP_BTN_ATTRIBUTES[i];
 
     const jmpBtn = document.createElement("button");
@@ -192,6 +238,9 @@ function setJumps() {
     jmpBtn.dataset.jump = target.target;
     hvrJmpBtn.dataset.jump = target.target;
 
+    jmpBtn.ariaLabel = target.ariaLabel;
+    hvrJmpBtn.ariaLabel = target.ariaLabel;
+
     jmpList.appendChild(jmpBtn);
     hvrJmpList.appendChild(hvrJmpBtn);
 
@@ -202,6 +251,10 @@ function setJumps() {
     hvrJmpList.appendChild(hr);
   }
 
+  hvrJmpList.appendChild(hvrBtmBtn);
+
+  hvrBtmBtn.addEventListener("click", jumpTo);
+
   // Get what the height should be theoretically
   hvrJmpList.style = "height: fit-content";
   ElAttributes.hvrJmpListHeight = hvrJmpList.offsetHeight;
@@ -211,7 +264,7 @@ function setJumps() {
   hvrJmpTggl.addEventListener("click", expandHoverJumpList);
 }
 
-/* --------------------------------- BUTTON FUNCTIONS --------------------------------- */
+/* --------------------------------- EVENT LISTENER FUNCTIONS --------------------------------- */
 
 function jumpTo(e) {
   e.preventDefault();
@@ -223,6 +276,7 @@ function jumpTo(e) {
     targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight / 2}px`;
     history.pushState(null, "", `#${jump}`);
     targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
+    targetEl.focus();
   }
 }
 
@@ -237,10 +291,59 @@ function expandHoverJumpList(e) {
     tgglBtn.classList.remove("active");
     targetEl.dataset.state = ElAttributes.hvrJmpBtnClosed;
   } else {
-    targetEl.style = `height: ${ElAttributes.hvrJmpListHeight}px; margin-bottom: 0.5rem; z-index: 6;`;
+    targetEl.style = `height: ${ElAttributes.hvrJmpListHeight}px; z-index: 6;`;
     tgglBtn.classList.add("active");
     targetEl.dataset.state = ElAttributes.hvrJmpBtnOpen;
   }
+}
+
+function clearUrl(e) {
+  e.preventDefault();
+
+  if (window.location.hash) {
+    history.pushState(
+      "",
+      document.title,
+      window.location.pathname + window.location.search,
+    );
+  }
+}
+
+function applyTransform(e) {
+  e.preventDefault();
+  
+  // Reset the transition delay
+  e.currentTarget.style.setProperty("--trans-delay", "0ms");
+
+  // Get the button's position and dimensions
+  const rect = e.currentTarget.getBoundingClientRect();
+
+  // Calculate the mouse position relative to the button's center
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+
+  // Calculate the angle from the center to the mouse position
+  // Add 90 degrees because a linear-gradient's 0deg is a vertical line
+  const angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+
+  // Update --mouse-angle css var
+  e.currentTarget.style.setProperty("--mouse-angle", `${angle}deg`);
+
+  // Then calculate rotation for card tilt
+  const rotateLimit = 10; // Max degrees to tilt
+  const rotateX = (-y / (rect.height / 2)) * rotateLimit; // Invert Y for natural tilt
+  const rotateY = (x / (rect.width / 2)) * rotateLimit;
+
+  // Add rotation effect next
+  e.currentTarget.style.setProperty("--tilt-x", `${rotateX}deg`);
+  e.currentTarget.style.setProperty("--tilt-y", `${rotateY}deg`);
+}
+
+function resetTransform(e) {
+  e.preventDefault();
+  
+  e.currentTarget.style.setProperty("--tilt-x", "0deg");
+  e.currentTarget.style.setProperty("--tilt-y", "0deg");
 }
 
 /* --------------------------------- MAIN FUNCTION --------------------------------- */
@@ -263,7 +366,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cleanup(el) {
       ElStore.get(EL_ID_LIST.hvrJmpCont).style = "";
       this.viewed = false;
-      console.log(ObTargets.get(EL_ID_LIST.ftr));
     },
     viewed: false,
   });
@@ -308,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
   footerDetails.addEventListener("toggle", () => {
     moveHoverJumpList();
 
-    ElStore.get(EL_ID_LIST.ftrDisclaimerDetails).scrollIntoView({
+    ElStore.get(EL_ID_LIST.ftr).scrollIntoView({
       behavior: "smooth",
       block: "end",
     });
@@ -328,4 +430,6 @@ document.addEventListener("DOMContentLoaded", () => {
       targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }
+
+  ElStore.get(EL_ID_LIST.clrUrlBtn).addEventListener("click", clearUrl);
 });
