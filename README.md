@@ -20,33 +20,23 @@ This repo covers the University of Illinois Springfield Computer Science Club we
 ## ACCESSIBILTY
 
 - (prefers-reduced-motion)
-
 - (prefers-color-scheme)
-
 - (prefers-contrast)
-
 - (min-width: 1920px)
-
 - (min-width: 1440px)
-
 - (min-width: 3840px)
 
 ## WIP ADDITIONS
 
 - Mobile support (it's pretty bad at the current moment)
-
 - Dynamic event fetching
-
 - Dynamic club member fetching
-
 - Proper webkit support
 
 ## SERVING
 
 1. Clone this GitHub reposity either using git, or by simply downloading the sourcecode.
-
 2. Navigate to the `/public` directory.
-
 3. Use your favorite local server, such as `npm serve` or `python3 -m serve`.
 
 ## KNOWN ISSUES
