@@ -4,11 +4,11 @@
 
 ### The unofficial repo for the University of Illinois Springfield CS club
 
-### If you're looking for Orion Lab, please visit [HERE]("https://github.com/Spar3Chang3/Orion-Labs")
+### If you're looking for Orion Lab, please visit [HERE](https://github.com/Spar3Chang3/Orion-Labs)
 
 ---
 
-This repo covers the University of Illinois Springfield Computer Science Club website. The entire structure is built from pure vanilla HTML/CSS/JS. No bundling, no building, no poorly executed crypto hacks. Current project goals are to make this the most accessible, friendly, and informative place for technology and cooperation alike within UIS. A demo of the current build can be viewed [HERE]("https://uiscs.club/).
+This repo covers the University of Illinois Springfield Computer Science Club website. The entire structure is built from pure vanilla HTML/CSS/JS. No bundling, no building, no poorly executed crypto hacks. Current project goals are to make this the most accessible, friendly, and informative place for technology and cooperation alike within UIS. A demo of the current build can be viewed [HERE](https://uiscs.club/).
 
 ## FEATURES
 
