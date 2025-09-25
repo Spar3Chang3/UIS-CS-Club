@@ -50,7 +50,11 @@
     </head>
     <body>
         <main aria-label="main content">
-            <div class="hero-intro-overlay" id="intro-container">
+            <div
+                class="hero-intro-overlay"
+                id="intro-container"
+                data-jumpdestination="Top"
+            >
                 <img
                     src="/assets/images/hero-intro-overlay.webp"
                     alt="Computer Science Club"
@@ -62,7 +66,7 @@
                     </div>
 
                     <div class="jmp-list" id="jmp-list">
-                        <h3>JavaScript is required to properly jump</h3>
+                        <h3>JavaScript is required to properly auto scroll</h3>
                     </div>
                 </header>
             </div>
@@ -71,6 +75,7 @@
                 class="content"
                 id="promotional-content"
                 aria-label="promotional text"
+                data-jumpdestination="Promotion"
             >
                 <h2>Where Coders, Creators, and Curious Minds Collide</h2>
                 <p>
@@ -117,6 +122,7 @@
                 class="content"
                 id="schedule-content"
                 aria-label="scheduled events and meeting"
+                data-jumpdestination="Schedule"
             >
                 <h2>Check Our Schedule</h2>
                 <p>
@@ -131,6 +137,7 @@
                 class="content"
                 id="contact-content"
                 aria-label="contact UIS CS club"
+                data-jumpdestination="Contact"
             >
                 <h2>Contact Us</h2>
                 <div class="contact-container" aria-label="contact links">
@@ -167,6 +174,7 @@
                 class="member-content"
                 id="member-content"
                 aria-label="club members"
+                data-jumpdestination="Members"
             >
                 <h2>Meet the Members</h2>
 
@@ -192,11 +200,16 @@
                 </p>
             </div>
 
-            <div class="url-settings">
+            <div class="url-settings" id="clr-container">
                 <button class="clr-btn" id="clr-btn">Clear URL</button>
             </div>
 
-            <footer class="footer" id="footer">
+            <footer
+                class="footer"
+                id="footer"
+                aria-label="copyright, disclaimers, and external links"
+                data-jumpdestination="Bottom"
+            >
                 <div class="ftr-copyright">
                     <p>
                         <strong>

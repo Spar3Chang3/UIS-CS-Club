@@ -30,6 +30,9 @@ const EL_ID_LIST = {
   hvrJmpBtnTggl: "hvr-jmp-btn-tggl",
   clrUrlBtn: "clr-btn",
 
+  // Util containers
+  clrCont: "clr-container",
+
   // Footer
   ftr: "footer",
   ftrDisclaimerDetails: "ftr-disclaimer-details",
@@ -88,11 +91,14 @@ const ElAttributes = {
   hvrJmpListHeight: 0, // Expanding part of hover jump list
   hvrJmpBtnOpen: "open", // Look these two I just didn't like being in their own separate object
   hvrJmpBtnClosed: "closed", // ^
+  activeClassName: "active", // ^
+  cpBtnIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg>`,
   hvrJmpBtnBttmBffr: 25, // Buffer in px for button to stay away from footer
 };
 
 const ElStore = new Map([]); // ID, Doc Element
 const ObTargets = new Map([]); // ID, { callback(), cleanup(), viewed (t/f) }
+const JmpTargets = new Map([]); // jump name, document id - going to try this for very marginally less performance but more ease of use
 
 /* --------------------------------- UTIL FUNCTIONS --------------------------------- */
 
@@ -106,12 +112,20 @@ function GetAllElements() {
   }
 }
 
+function GetUrlArtifact() {
+  return window.location.hash.substring(1); // NO '#' INCLUDED IN RETURN
+}
+
+function SetUrlArtifact(artifact) {
+  history.replaceState(null, "", `#${artifact}`);
+}
+
 /* --------------------------------- ELEMENT MANIPULATION FUNCTIONS --------------------------------- */
 
 // Current callbacks for observer
 
 function applyActiveClass(targetEl) {
-  targetEl.classList.add("active");
+  targetEl.classList.add(ElAttributes.activeClassName);
 }
 
 function moveHoverJumpList() {
@@ -200,6 +214,9 @@ function setJumps() {
   const topTarget = JMP_BTN_ATTRIBUTES[0];
   const btmTarget = JMP_BTN_ATTRIBUTES[JMP_BTN_ATTRIBUTES.length - 1];
 
+  JmpTargets.set(topTarget.jmpName, topTarget.target);
+  JmpTargets.set(btmTarget.jmpName, btmTarget.target);
+
   const hvrTopBtn = document.createElement("button");
   const hvrBtmBtn = document.createElement("button");
 
@@ -209,8 +226,8 @@ function setJumps() {
   hvrTopBtn.className = "hvr-jmp-btn-top";
   hvrBtmBtn.className = "hvr-jmp-btn-btm";
 
-  hvrTopBtn.dataset.jump = topTarget.target;
-  hvrBtmBtn.dataset.jump = btmTarget.target;
+  hvrTopBtn.dataset.jumpto = topTarget.target;
+  hvrBtmBtn.dataset.jumpto = btmTarget.target;
 
   hvrTopBtn.ariaLabel = topTarget.ariaLabel;
   hvrBtmBtn.ariaLabel = btmTarget.ariaLabel;
@@ -228,24 +245,40 @@ function setJumps() {
 
     const jmpBtn = document.createElement("button");
     const hvrJmpBtn = document.createElement("button");
+    const cpBtn = document.createElement("button");
+
+    JmpTargets.set(target.jmpName, target.target);
 
     jmpBtn.textContent = target.jmpName;
     hvrJmpBtn.innerHTML = target.hvrIcon;
+    cpBtn.innerHTML = ElAttributes.cpBtnIcon;
 
     jmpBtn.className = "jmp-btn";
     hvrJmpBtn.className = "hvr-jmp-btn";
+    cpBtn.className = "cp-btn";
 
-    jmpBtn.dataset.jump = target.target;
-    hvrJmpBtn.dataset.jump = target.target;
+    jmpBtn.dataset.jumpto = target.target;
+    hvrJmpBtn.dataset.jumpto = target.target;
+    cpBtn.dataset.copylink =
+      location.origin +
+      location.pathname +
+      location.search +
+      `#${target.jmpName}`;
 
     jmpBtn.ariaLabel = target.ariaLabel;
+    jmpBtn.title = target.ariaLabel;
     hvrJmpBtn.ariaLabel = target.ariaLabel;
+    hvrJmpBtn.title = target.ariaLabel;
+    cpBtn.ariaLabel = `Copy website link of the ${target.jmpName} to your clipboard`;
+    cpBtn.title = "Copy URL to clipboard";
 
     jmpList.appendChild(jmpBtn);
     hvrJmpList.appendChild(hvrJmpBtn);
+    ElStore.get(target.target).appendChild(cpBtn);
 
     jmpBtn.addEventListener("click", jumpTo);
     hvrJmpBtn.addEventListener("click", jumpTo);
+    cpBtn.addEventListener("click", copyURL);
 
     const hr = document.createElement("hr");
     hvrJmpList.appendChild(hr);
@@ -269,14 +302,20 @@ function setJumps() {
 function jumpTo(e) {
   e.preventDefault();
 
-  const jump = e.currentTarget.dataset.jump;
+  // Do the main part
+  const jump = e.currentTarget.dataset.jumpto;
   const targetEl = ElStore.get(jump);
 
   if (targetEl) {
     targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight / 2}px`;
-    history.pushState(null, "", `#${jump}`);
+    SetUrlArtifact(targetEl.dataset.jumpdestination);
     targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
     targetEl.focus();
+  }
+
+  // Apply the insignificant CSS
+  if (window.location.hash) {
+    ElStore.get(EL_ID_LIST.clrCont).classList.add(ElAttributes.activeClassName);
   }
 }
 
@@ -301,17 +340,37 @@ function clearUrl(e) {
   e.preventDefault();
 
   if (window.location.hash) {
-    history.pushState(
+    history.replaceState(
       "",
       document.title,
       window.location.pathname + window.location.search,
     );
+
+    // Yes this kinda just assumes it's got one but eh, should never be falsely fired and even if it does nothing bad should really happe
+    ElStore.get(EL_ID_LIST.clrCont).classList.remove(
+      ElAttributes.activeClassName,
+    );
   }
+}
+
+function copyURL(e) {
+  e.preventDefault();
+
+  const targetEl = e.currentTarget;
+
+  const link = targetEl.dataset.copylink;
+  navigator.clipboard.writeText(link);
+
+  targetEl.classList.add(ElAttributes.activeClassName);
+  setTimeout(
+    () => targetEl.classList.remove(ElAttributes.activeClassName),
+    2000,
+  );
 }
 
 function applyTransform(e) {
   e.preventDefault();
-  
+
   // Reset the transition delay
   e.currentTarget.style.setProperty("--trans-delay", "0ms");
 
@@ -341,7 +400,7 @@ function applyTransform(e) {
 
 function resetTransform(e) {
   e.preventDefault();
-  
+
   e.currentTarget.style.setProperty("--tilt-x", "0deg");
   e.currentTarget.style.setProperty("--tilt-y", "0deg");
 }
@@ -418,10 +477,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Scroll to the given element if user enters website with a # - added the window.scrollTo part so that all observer animations are guaranteed
   if (window.location.hash) {
-    const id = window.location.hash.substring(1);
-    const targetEl = ElStore.get(id);
+    const dataJmpDst = GetUrlArtifact();
+    const targetEl = ElStore.get(JmpTargets.get(dataJmpDst));
     if (targetEl) {
-      targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight / 2}px`;
+      targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight * 0.8}px`;
       window.scrollTo({
         top: 0,
         left: 0,
@@ -429,6 +488,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
     }
+
+    ElStore.get(EL_ID_LIST.clrCont).classList.add(ElAttributes.activeClassName);
   }
 
   ElStore.get(EL_ID_LIST.clrUrlBtn).addEventListener("click", clearUrl);

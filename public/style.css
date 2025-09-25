@@ -35,9 +35,13 @@
     --border-color: rgba(114, 184, 254, 0.8);
     --bg-dots: #d3d3d3;
     --effct-bg: transparent;
+    --status-ok-bg: #77dd77;
+    --status-warn-bg: #fdfd96;
+    --status-err-bg: lightcoral;
 
     /* --- Sizing --- */
     --prgph-size: 1.5rem;
+    --bnnr-size: 2.5rem;
     --small-size: 0.9rem;
     --subtle-size: 1.25rem;
 
@@ -122,7 +126,7 @@ h2 {
     padding: 0 1rem;
     width: 100%;
     color: whitesmoke;
-    font-size: 2.5rem;
+    font-size: var(--bnnr-size);
     box-shadow: var(--box-shadow);
     border-radius: 8px;
     margin: 0 0 1rem 0;
@@ -352,6 +356,44 @@ button {
     background-color: var(--border-color);
 }
 
+.cp-btn {
+    position: absolute;
+    top: 1.9rem; /* account for border */
+    right: 2rem;
+    height: var(--bnnr-size);
+    width: var(--bnnr-size);
+    padding: 0.25rem;
+    border: 0.1rem solid transparent;
+    background: transparent;
+    object-fit: contain;
+    cursor: pointer;
+    transition: border 0.3s ease;
+    border-radius: 6px;
+}
+
+.cp-btn svg {
+    height: calc(var(--bnnr-size) - 0.5rem); /* To account for padding */
+    width: calc(var(--bnnr-size) - 0.5rem); /* ^ */
+    stroke: var(--border-color);
+    transition: stroke 1s ease;
+}
+
+.cp-btn:hover svg {
+    stroke: whitesmoke;
+}
+
+.cp-btn:hover {
+    border: 0.1rem solid whitesmoke;
+}
+
+.cp-btn.active {
+    border: 0.1rem solid var(--status-ok-bg);
+}
+
+.cp-btn.active svg {
+    stroke: var(--status-ok-bg);
+}
+
 .hero-intro-overlay {
     display: flex;
     flex-direction: column;
@@ -430,14 +472,15 @@ button {
 
 .content,
 .member-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-height: 25vh;
     max-height: fit-content;
     width: 95%;
     padding: 1.5rem 1rem;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
     align-items: center;
@@ -674,21 +717,36 @@ button {
     overflow: hidden;
     backdrop-filter: blur(4px);
     border-radius: 6px;
+    opacity: 0.3;
 }
 
 .clr-btn {
     padding: 0.5rem 1rem;
     font-size: var(--subtle-size);
     border: none;
-    background-color: var(--primary-color);
+    background-color: var(--bg-dots);
     color: white;
     border-radius: 6px;
     cursor: pointer;
     box-shadow: var(--box-shadow);
-    transition: background-color 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        opacity 0.3s ease;
 }
 
-.clr-btn:hover {
+.url-settings .clr-btn {
+    cursor: not-allowed;
+}
+
+.url-settings.active {
+    opacity: 1;
+}
+
+.url-settings.active .clr-btn {
+    cursor: pointer;
+}
+
+.url-settings.active .clr-btn:hover {
     background-color: var(--secondary-color);
 }
 
@@ -700,12 +758,6 @@ button {
     to {
         opacity: 1;
         backdrop-filter: blur(12px);
-    }
-}
-
-@keyframes change-delay {
-    to {
-        transition-delay: 0;
     }
 }
 
