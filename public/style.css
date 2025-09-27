@@ -64,6 +64,13 @@
         --secondary-color: rgba(44, 70, 153, 1);
         --effct-bg: #395a7f;
     }
+
+    @media only screen and (max-width: 768px) {
+        --prgph-size: 1.2rem;
+        --bnnr-size: 1.5rem;
+        --small-size: 0.9rem;
+        --subtle-size: 1rem;
+    }
 }
 
 html {
@@ -358,10 +365,10 @@ button {
 
 .cp-btn {
     position: absolute;
-    top: 1.9rem; /* account for border */
-    right: 2rem;
-    height: var(--bnnr-size);
-    width: var(--bnnr-size);
+    top: calc(var(--bnnr-size) - 1rem);
+    right: calc(var(--bnnr-size) - 1rem);
+    height: fit-content;
+    width: fit-content;
     padding: 0.25rem;
     border: 0.1rem solid transparent;
     background: transparent;
@@ -395,10 +402,12 @@ button {
 }
 
 .hero-intro-overlay {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 .hero-intro-overlay > img {
@@ -446,10 +455,11 @@ button {
 .jmp-list {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     height: fit-content;
     width: fit-content;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     padding: 0.5rem;
     gap: 1rem;
 }
@@ -464,10 +474,28 @@ button {
     cursor: pointer;
     box-shadow: var(--box-shadow);
     border-radius: 8px;
+    transform: scale(0);
+    animation: emphasize 0.2s ease-out forwards;
 }
 
 .jmp-btn:hover {
     background-color: var(--secondary-color);
+}
+
+.scrl-hlp-btn {
+    position: absolute;
+    bottom: 1rem;
+    left: 50vw;
+    transform: translate(-50%, 50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.scrl-hlp-btn svg {
+    height: 4rem;
+    width: 4rem;
+    stroke: var(--svg-fill);
 }
 
 .content,
@@ -478,7 +506,7 @@ button {
     min-height: 25vh;
     max-height: fit-content;
     width: 95%;
-    padding: 1.5rem 1rem;
+    padding: 1rem 1rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
     position: relative;
@@ -564,9 +592,8 @@ button {
     width: 100%;
     min-height: 15vh;
     max-height: fit-content;
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    padding: 0;
+    margin: 0;
 }
 
 .separator hr {
@@ -616,7 +643,7 @@ button {
 }
 
 .contact-container p {
-    font-size: 1.5rem;
+    font-size: var(--subtle-size);
     width: fit-content;
 }
 
@@ -651,7 +678,7 @@ button {
 .team-member-card {
     display: grid;
     place-items: center;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 12px;
     background: linear-gradient(
         var(--mouse-angle),
@@ -659,8 +686,8 @@ button {
         var(--secondary-color)
     );
     color: white;
-    max-width: 15rem;
-    height: 20rem;
+    max-width: 20rem;
+    height: 24rem;
     text-align: center;
     box-shadow: var(--box-shadow);
     margin: 1rem;
@@ -687,22 +714,24 @@ button {
 }
 
 .team-member-portrait {
-    width: 6rem;
-    height: 6rem;
+    width: 10rem;
+    height: 10rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
 }
 
 .team-member-name {
-    font-size: 1.2rem;
+    font-size: var(--prgph-size);
     margin: 0.3rem 0;
 }
 
 .team-member-description {
-    font-size: 0.95rem;
+    font-size: var(--subtle-size);
     color: whitesmoke;
+    text-align: left;
 }
 
 .url-settings {
@@ -761,15 +790,89 @@ button {
     }
 }
 
+@keyframes emphasize {
+    0% {
+        transform: scale(0);
+    }
+    75% {
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 @media only screen and (max-width: 768px) {
     h2 {
-        font-size: 2rem;
         padding: 0.5rem;
     }
+    .hero-intro-text {
+        max-width: 80vw;
+        font-size: 1rem;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero-intro-text-wrapper {
+        gap: 4rem;
+    }
+    .jmp-list {
+        position: relative;
+        display: grid;
 
-    p,
-    a {
-        font-size: 1.2rem;
+        height: fit-content;
+        width: 100%;
+
+        place-items: center;
+        gap: 2rem;
+    }
+    .jmp-btn {
+        position: relative;
+        width: 70vw;
+    }
+    .scrl-hlp-btn svg {
+        height: 3rem;
+        width: 3rem;
+    }
+    .cp-btn {
+        top: calc(var(--bnnr-size) - 0.5rem);
+        right: calc(var(--bnnr-size) - 0.5rem);
+    }
+    .cp-btn svg {
+        height: calc(var(--bnnr-size) + 0.5rem);
+        width: calc(var(--bnnr-size) + 0.5rem);
+    }
+    .content,
+    .member-content {
+        padding: 0.5rem;
+    }
+    .separator {
+        min-height: 10vh;
+    }
+    .member-content .member-container .team-member-card {
+        opacity: 0;
+    }
+    .member-content.active .member-container .team-member-card {
+        opacity: 1;
+    }
+    .member-container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        margin: 0;
+        gap: 1.5rem;
+    }
+    .team-member-card {
+        min-width: 100%;
+        margin: 0;
+    }
+    .team-member-name {
+        font-size: var(--bnnr-size);
+    }
+    .footer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 1rem;
     }
 }
 
@@ -827,5 +930,10 @@ button {
         animation: none;
         opacity: 1;
         backdrop-filter: blur(12px);
+    }
+    .jmp-btn {
+        animation: none;
+        animation-delay: 0s !important;
+        transform: scale(1);
     }
 }

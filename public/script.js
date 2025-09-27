@@ -29,6 +29,7 @@ const EL_ID_LIST = {
   hvrJmpList: "hvr-jmp-list",
   hvrJmpBtnTggl: "hvr-jmp-btn-tggl",
   clrUrlBtn: "clr-btn",
+  scrlHlpBtn: "scrl-hlp-btn",
 
   // Util containers
   clrCont: "clr-container",
@@ -158,7 +159,7 @@ async function addMembers() {
       let index = 0;
       for (const member of memberData) {
         const card = document.createElement("div");
-        if (!REDUCED_MOTION.matches) {
+        if (!REDUCED_MOTION.matches && !IS_MOBILE.matches) {
           card.style.setProperty("--trans-delay", `${100 * index}ms`);
           card.addEventListener("mousemove", applyTransform);
           card.addEventListener("mouseleave", resetTransform);
@@ -256,6 +257,8 @@ function setJumps() {
     jmpBtn.className = "jmp-btn";
     hvrJmpBtn.className = "hvr-jmp-btn";
     cpBtn.className = "cp-btn";
+
+    jmpBtn.style.animationDelay = `${150 * i}ms`;
 
     jmpBtn.dataset.jumpto = target.target;
     hvrJmpBtn.dataset.jumpto = target.target;
@@ -405,6 +408,15 @@ function resetTransform(e) {
   e.currentTarget.style.setProperty("--tilt-y", "0deg");
 }
 
+function scrollPastIntro(e) {
+  e.preventDefault();
+  window.scrollBy({
+    top: window.innerHeight,
+    left: 0,
+    behavior: "smooth",
+  });
+}
+
 /* --------------------------------- MAIN FUNCTION --------------------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -456,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     {
-      threshold: 0.8,
+      threshold: IS_MOBILE.matches ? 0.4 : 0.8,
     },
   );
 
@@ -467,7 +479,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add event listener to make sure hover jump list does not cover the footer
   footerDetails.addEventListener("toggle", () => {
-    moveHoverJumpList();
+    if (!IS_MOBILE.matches) {
+      console.log("Still triggering");
+      moveHoverJumpList();
+    }
 
     ElStore.get(EL_ID_LIST.ftr).scrollIntoView({
       behavior: "smooth",
@@ -493,4 +508,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   ElStore.get(EL_ID_LIST.clrUrlBtn).addEventListener("click", clearUrl);
+  ElStore.get(EL_ID_LIST.scrlHlpBtn).addEventListener("click", scrollPastIntro);
 });
