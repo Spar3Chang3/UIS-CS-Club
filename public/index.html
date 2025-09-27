@@ -161,38 +161,100 @@
 
             <div
                 class="content"
-                id="contact-content"
-                aria-label="contact UIS CS club"
-                data-jumpdestination="Contact"
+                id="join-content"
+                aria-label="Join or contact UIS CS club"
+                data-jumpdestination="Join"
             >
-                <h2>Contact Us</h2>
-                <div class="contact-container" aria-label="contact links">
-                    <a
-                        href="https://discord.gg/vXFt6bNt5r"
-                        target="_blank"
-                        class="img-lnk"
+                <h2>Join Us</h2>
+
+                <p id="join-svg-start">
+                    Computer science major or not, any student with an interest
+                    in technology (and potential food) is welcome!
+                </p>
+
+                <svg id="join-svg" class="join-svg">
+                    <defs>
+                        <marker
+                            id="join-arrowhead"
+                            markerWidth="10"
+                            markerHeight="7"
+                            refX="0"
+                            refY="3.5"
+                            orient="auto"
+                            markerUnits="strokeWidth"
+                        >
+                            <polygon
+                                points="0 0, 10 3.5, 0 7"
+                                class="fill-current"
+                            />
+                        </marker>
+                    </defs>
+                    <circle id="join-start-dot" r="5" class="fill-current" />
+                    <!-- The path itself, with the arrowhead marker applied to the end -->
+                    <path
+                        id="join-dynamic-path"
+                        stroke-width="6"
+                        fill="currentColor"
+                        class="stroke-current"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        marker-end="url(#join-arrowhead)"
+                    />
+                </svg>
+
+                <a
+                    class="join-lnk"
+                    id="join-svg-stop"
+                    href="https://uisconnection.uis.edu/actioncenter/organization/csclub"
+                    >Join UIS CSC</a
+                >
+                <small
+                    >*only registered students of UIS are allowed to be official
+                    members of the club</small
+                >
+
+                <br />
+
+                <p>
+                    Anyone is allowed in the community discords. If you share a
+                    passion for technology, come say hi!
+                </p>
+
+                <div class="contact-collection" aria-label="contact list">
+                    <div
+                        class="contact-container"
+                        aria-label="Contact UIS CS Club"
                     >
-                        <img
-                            class="lnk-img"
-                            src="/assets/images/discord-logo.svg"
-                            alt="Join the UIS CS Club discord!"
-                        />
-                    </a>
-                    <a
-                        href="https://discord.gg/vXFt6bNt5r"
-                        target="_blank"
-                        class="img-lnk"
+                        <a
+                            href="https://discord.gg/vXFt6bNt5r"
+                            target="_blank"
+                            class="img-lnk"
+                        >
+                            <img
+                                class="lnk-img"
+                                src="/assets/images/discord-logo.svg"
+                                alt="Join the UIS CS Club discord!"
+                            />
+                        </a>
+                        <p><strong>Orion Lab</strong></p>
+                    </div>
+                    <div
+                        class="contact-container"
+                        aria-label="Contact Orion Lab"
                     >
-                        <img
-                            class="lnk-img"
-                            src="/assets/images/discord-logo.svg"
-                            alt="Join the Orion Lab discord!"
-                        />
-                    </a>
-                </div>
-                <div class="contact-container" aria-hidden="true">
-                    <p><strong>UIS CS Club</strong></p>
-                    <p><strong>Orion Lab</strong></p>
+                        <a
+                            href="https://discord.gg/vXFt6bNt5r"
+                            target="_blank"
+                            class="img-lnk"
+                        >
+                            <img
+                                class="lnk-img"
+                                src="/assets/images/discord-logo.svg"
+                                alt="Join the Orion Lab discord!"
+                            />
+                        </a>
+                        <p><strong>UIS CS Club</strong></p>
+                    </div>
                 </div>
             </div>
 
@@ -227,7 +289,13 @@
             </div>
 
             <div class="url-settings" id="clr-container">
-                <button class="clr-btn" id="clr-btn">Clear URL</button>
+                <button
+                    class="clr-btn"
+                    id="clr-btn"
+                    title="Remove any extra sections from your current link"
+                >
+                    Clear URL
+                </button>
             </div>
 
             <footer

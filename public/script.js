@@ -16,7 +16,7 @@ const EL_ID_LIST = {
   // Observer Sections
   promoContent: "promotional-content",
   schedContent: "schedule-content",
-  contactContent: "contact-content",
+  joinContent: "join-content",
   memberContent: "member-content",
   outroContent: "outro-content",
 
@@ -34,6 +34,13 @@ const EL_ID_LIST = {
   // Util containers
   clrCont: "clr-container",
 
+  // SVG animations
+  joinSvg: "join-svg",
+  joinSvgStart: "join-svg-start",
+  joinSvgStop: "join-svg-stop",
+  joinSvgDot: "join-start-dot",
+  joinSvgPath: "join-dynamic-path",
+
   // Footer
   ftr: "footer",
   ftrDisclaimerDetails: "ftr-disclaimer-details",
@@ -43,7 +50,7 @@ const EL_ID_LIST = {
 const DEFAULT_OBSERVER_TARGET_LIST = [
   EL_ID_LIST.promoContent,
   EL_ID_LIST.schedContent,
-  EL_ID_LIST.contactContent,
+  EL_ID_LIST.joinContent,
   EL_ID_LIST.memberContent,
   EL_ID_LIST.outroContent,
 ];
@@ -69,10 +76,10 @@ const JMP_BTN_ATTRIBUTES = [
     ariaLabel: "Scroll to schedule",
   },
   {
-    jmpName: "Contact",
+    jmpName: "Join Us",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-discord"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M15.5 17c0 1 1.5 3 2 3c1.5 0 2.833 -1.667 3.5 -3c.667 -1.667 .5 -5.833 -1.5 -11.5c-1.457 -1.015 -3 -1.34 -4.5 -1.5l-.972 1.923a11.913 11.913 0 0 0 -4.053 0l-.975 -1.923c-1.5 .16 -3.043 .485 -4.5 1.5c-2 5.667 -2.167 9.833 -1.5 11.5c.667 1.333 2 3 3.5 3c.5 0 2 -2 2 -3" /><path d="M7 16.5c3.5 1 6.5 1 10 0" /></svg>`,
-    target: EL_ID_LIST.contactContent,
-    ariaLabel: "Scroll to contact list",
+    target: EL_ID_LIST.joinContent,
+    ariaLabel: "Scroll to join section",
   },
   {
     jmpName: "Members",
@@ -95,6 +102,7 @@ const ElAttributes = {
   activeClassName: "active", // ^
   cpBtnIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg>`,
   hvrJmpBtnBttmBffr: 25, // Buffer in px for button to stay away from footer
+  svgElBuffer: 16, // Buffer in px for svg to not run into element
 };
 
 const ElStore = new Map([]); // ID, Doc Element
@@ -231,7 +239,9 @@ function setJumps() {
   hvrBtmBtn.dataset.jumpto = btmTarget.target;
 
   hvrTopBtn.ariaLabel = topTarget.ariaLabel;
+  hvrTopBtn.title = topTarget.ariaLabel;
   hvrBtmBtn.ariaLabel = btmTarget.ariaLabel;
+  hvrBtmBtn.title = btmTarget.ariaLabel;
 
   const topHr = document.createElement("hr");
 
@@ -298,6 +308,28 @@ function setJumps() {
 
   hvrJmpList.dataset.state = ElAttributes.hvrJmpBtnClosed;
   hvrJmpTggl.addEventListener("click", expandHoverJumpList);
+}
+
+function generateSvgPath(startEl, endEl, dotEl, pathEl, svg) {
+  const startRect = startEl.getBoundingClientRect();
+  const endRect = endEl.getBoundingClientRect();
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+
+  const startX =
+    scrollX + startRect.left + startRect.width + ElAttributes.svgElBuffer;
+  const startY = scrollY + startRect.top + startRect.height / 2;
+
+  const turnY = scrollY + endRect.height / 2;
+  const endX =
+    scrollX + endRect.left + endRect.width + ElAttributes.svgElBuffer;
+
+  const pathData = `M ${startX} ${startY} L ${startX} ${turnY} L ${endX} ${turnY}`;
+
+  pathEl.setAttribute("d", pathData);
+
+  dotEl.setAttribute("cx", startX);
+  dotEl.setAttribute("cy", startY);
 }
 
 /* --------------------------------- EVENT LISTENER FUNCTIONS --------------------------------- */
@@ -509,4 +541,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ElStore.get(EL_ID_LIST.clrUrlBtn).addEventListener("click", clearUrl);
   ElStore.get(EL_ID_LIST.scrlHlpBtn).addEventListener("click", scrollPastIntro);
+
+  generateSvgPath(
+    ElStore.get(EL_ID_LIST.joinSvgStart),
+    ElStore.get(EL_ID_LIST.joinSvgStop),
+    ElStore.get(EL_ID_LIST.joinSvgDot),
+    ElStore.get(EL_ID_LIST.joinSvgPath),
+    ElStore.get(EL_ID_LIST.joinSvg),
+  );
 });
