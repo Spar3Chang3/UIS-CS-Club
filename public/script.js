@@ -41,6 +41,12 @@ const EL_ID_LIST = {
   joinSvgDot: "join-start-dot",
   joinSvgPath: "join-dynamic-path",
 
+  contactSvg: "contact-svg",
+  contactSvgStart: "contact-svg-start",
+  contactSvgStop: "contact-svg-stop",
+  contactSvgDot: "contact-start-dot",
+  contactSvgPath: "contact-dynamic-path",
+
   // Footer
   ftr: "footer",
   ftrDisclaimerDetails: "ftr-disclaimer-details",
@@ -50,7 +56,6 @@ const EL_ID_LIST = {
 const DEFAULT_OBSERVER_TARGET_LIST = [
   EL_ID_LIST.promoContent,
   EL_ID_LIST.schedContent,
-  EL_ID_LIST.joinContent,
   EL_ID_LIST.memberContent,
   EL_ID_LIST.outroContent,
 ];
@@ -101,8 +106,8 @@ const ElAttributes = {
   hvrJmpBtnClosed: "closed", // ^
   activeClassName: "active", // ^
   cpBtnIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg>`,
-  hvrJmpBtnBttmBffr: 25, // Buffer in px for button to stay away from footer
-  svgElBuffer: 16, // Buffer in px for svg to not run into element
+  hvrJmpBtnBttmBffr: 24, // Buffer in px for button to stay away from footer
+  svgElBuffer: 8, // Buffer in px for svg to not run into element
 };
 
 const ElStore = new Map([]); // ID, Doc Element
@@ -127,6 +132,15 @@ function GetUrlArtifact() {
 
 function SetUrlArtifact(artifact) {
   history.replaceState(null, "", `#${artifact}`);
+}
+
+// Use the value STRING, not the already parsed number
+function ConvertRemToPx(remValueString) {
+  const rootFontSize = parseFloat(
+    getComputedStyle(document.documentElement).fontSize,
+  );
+
+  return parseFloat(remValueString) * rootFontSize;
 }
 
 /* --------------------------------- ELEMENT MANIPULATION FUNCTIONS --------------------------------- */
@@ -310,23 +324,38 @@ function setJumps() {
   hvrJmpTggl.addEventListener("click", expandHoverJumpList);
 }
 
-function generateSvgPath(startEl, endEl, dotEl, pathEl, svg) {
+function generateSvgPath(parentEl, startEl, endEl, dotEl, pathEl) {
+  // This assumes that the svg is allowed to take up all of the content container (class .content)
+
+  const parentRect = parentEl.getBoundingClientRect();
   const startRect = startEl.getBoundingClientRect();
   const endRect = endEl.getBoundingClientRect();
-  const scrollX = window.scrollX;
-  const scrollY = window.scrollY;
+
+  const startDeltaY = startRect.top - parentRect.top;
 
   const startX =
-    scrollX + startRect.left + startRect.width + ElAttributes.svgElBuffer;
-  const startY = scrollY + startRect.top + startRect.height / 2;
+    startRect.right - parentRect.left + ElAttributes.svgElBuffer * 2;
+  const startY = startDeltaY + startRect.height / 2;
 
-  const turnY = scrollY + endRect.height / 2;
-  const endX =
-    scrollX + endRect.left + endRect.width + ElAttributes.svgElBuffer;
+  const turnX =
+    startRect.right -
+    parentRect.left +
+    (parentRect.right - startRect.right) -
+    ElAttributes.svgElBuffer * 6;
+  const turnY = endRect.top - startRect.top + startDeltaY + endRect.height / 2;
+  const endX = endRect.right - parentRect.left - ElAttributes.svgElBuffer;
 
-  const pathData = `M ${startX} ${startY} L ${startX} ${turnY} L ${endX} ${turnY}`;
+  const pathData = `M ${startX} ${startY} L ${turnX} ${startY} L ${turnX} ${turnY} L ${endX} ${turnY}`;
 
   pathEl.setAttribute("d", pathData);
+
+  const pathLength = pathEl.getTotalLength();
+  pathEl.style.strokeDasharray = pathLength;
+
+  pathEl.style.setProperty("--drw-svg-pth-lngth", pathLength);
+
+  dotEl.style.opacity = "1";
+  endEl.style.opacity = "1";
 
   dotEl.setAttribute("cx", startX);
   dotEl.setAttribute("cy", startY);
@@ -472,6 +501,30 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     viewed: false,
   });
+  ObTargets.set(EL_ID_LIST.joinContent, {
+    callback(el) {
+      applyActiveClass(el);
+      el.addEventListener("transitionend", () => {
+        generateSvgPath(
+          ElStore.get(EL_ID_LIST.joinContent),
+          ElStore.get(EL_ID_LIST.joinSvgStart),
+          ElStore.get(EL_ID_LIST.joinSvgStop),
+          ElStore.get(EL_ID_LIST.joinSvgDot),
+          ElStore.get(EL_ID_LIST.joinSvgPath),
+        );
+        generateSvgPath(
+          ElStore.get(EL_ID_LIST.joinContent),
+          ElStore.get(EL_ID_LIST.contactSvgStart),
+          ElStore.get(EL_ID_LIST.contactSvgStop),
+          ElStore.get(EL_ID_LIST.contactSvgDot),
+          ElStore.get(EL_ID_LIST.contactSvgPath),
+        );
+      });
+    },
+    cleanup(el) {
+      return;
+    },
+  });
   for (const target of DEFAULT_OBSERVER_TARGET_LIST) {
     ObTargets.set(target, {
       callback(el) {
@@ -539,14 +592,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ElStore.get(EL_ID_LIST.clrCont).classList.add(ElAttributes.activeClassName);
   }
 
+  ElAttributes.contentContMrgn = ConvertRemToPx(
+    getComputedStyle(document.documentElement).getPropertyValue("--cntnt-mrgn"),
+  );
+
   ElStore.get(EL_ID_LIST.clrUrlBtn).addEventListener("click", clearUrl);
   ElStore.get(EL_ID_LIST.scrlHlpBtn).addEventListener("click", scrollPastIntro);
-
-  generateSvgPath(
-    ElStore.get(EL_ID_LIST.joinSvgStart),
-    ElStore.get(EL_ID_LIST.joinSvgStop),
-    ElStore.get(EL_ID_LIST.joinSvgDot),
-    ElStore.get(EL_ID_LIST.joinSvgPath),
-    ElStore.get(EL_ID_LIST.joinSvg),
-  );
 });

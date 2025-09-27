@@ -85,7 +85,7 @@
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2"
+                            stroke-width="2.5"
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"
@@ -167,47 +167,62 @@
             >
                 <h2>Join Us</h2>
 
-                <p id="join-svg-start">
+                <p>
                     Computer science major or not, any student with an interest
-                    in technology (and potential food) is welcome!
+                    in technology (and potential food) is welcome<span
+                        id="join-svg-start"
+                        aria-hidden="true"
+                        class="drw-svg-start"
+                        >!</span
+                    >
                 </p>
 
-                <svg id="join-svg" class="join-svg">
-                    <defs>
-                        <marker
-                            id="join-arrowhead"
-                            markerWidth="10"
-                            markerHeight="7"
-                            refX="0"
-                            refY="3.5"
-                            orient="auto"
-                            markerUnits="strokeWidth"
-                        >
-                            <polygon
-                                points="0 0, 10 3.5, 0 7"
-                                class="fill-current"
-                            />
-                        </marker>
-                    </defs>
-                    <circle id="join-start-dot" r="5" class="fill-current" />
-                    <!-- The path itself, with the arrowhead marker applied to the end -->
-                    <path
-                        id="join-dynamic-path"
-                        stroke-width="6"
-                        fill="currentColor"
-                        class="stroke-current"
+                <div class="drw-svg-container">
+                    <svg id="join-svg" class="drw-svg">
+                        <circle
+                            id="join-start-dot"
+                            r="7"
+                            class="fill-current"
+                            fill="currentColor"
+                            style="opacity: 0"
+                        />
+                        <!-- The path, which will be updated in javascript -->
+                        <path
+                            id="join-dynamic-path"
+                            class="join-dynamic-path"
+                            stroke-width="3"
+                            fill="none"
+                            class="stroke-current"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+
+                <div class="join-lnk-container">
+                    <a
+                        class="join-lnk"
+                        href="https://uisconnection.uis.edu/actioncenter/organization/csclub"
+                        >Join UIS CSC</a
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        marker-end="url(#join-arrowhead)"
-                    />
-                </svg>
-
-                <a
-                    class="join-lnk"
-                    id="join-svg-stop"
-                    href="https://uisconnection.uis.edu/actioncenter/organization/csclub"
-                    >Join UIS CSC</a
-                >
+                        class="drw-svg-end"
+                        id="join-svg-stop"
+                        style="opacity: 0"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 6l-6 6l6 6" />
+                    </svg>
+                </div>
                 <small
                     >*only registered students of UIS are allowed to be official
                     members of the club</small
@@ -217,8 +232,36 @@
 
                 <p>
                     Anyone is allowed in the community discords. If you share a
-                    passion for technology, come say hi!
+                    passion for technology, come say hi<span
+                        id="contact-svg-start"
+                        aria-hidden="true"
+                        class="drw-svg-start"
+                        >!</span
+                    >
                 </p>
+
+                <div class="drw-svg-container">
+                    <svg id="contact-svg" class="drw-svg">
+                        <circle
+                            id="contact-start-dot"
+                            r="7"
+                            class="fill-current"
+                            fill="currentColor"
+                            style="opacity: 0"
+                        />
+                        <!-- The path, which will be updated in javascript -->
+                        <path
+                            id="contact-dynamic-path"
+                            class="contact-dynamic-path"
+                            stroke-width="3"
+                            fill="none"
+                            class="stroke-current"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            marker-end="url(#join-arrowhead)"
+                        />
+                    </svg>
+                </div>
 
                 <div class="contact-collection" aria-label="contact list">
                     <div
@@ -254,6 +297,23 @@
                             />
                         </a>
                         <p><strong>UIS CS Club</strong></p>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="drw-svg-end"
+                            id="contact-svg-stop"
+                            style="opacity: 0"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M15 6l-6 6l6 6" />
+                        </svg>
                     </div>
                 </div>
             </div>
