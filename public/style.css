@@ -19,7 +19,7 @@
     --primary-color: rgba(74, 95, 250, 0.8);
     --secondary-color: rgba(44, 70, 153, 0.8);
 
-    --banner-color: #2c3398;
+    --banner-color: rgba(44, 70, 153, 0.6);
 
     --bg-clr: whitesmoke;
 
@@ -66,6 +66,7 @@
     @media (prefers-contrast: more) {
         --primary-color: rgba(74, 95, 250, 1);
         --secondary-color: rgba(44, 70, 153, 1);
+        --banner-color: rgba(44, 70, 153, 1);
         --effct-bg: #395a7f;
     }
 
@@ -126,6 +127,7 @@ main {
 }
 
 h2 {
+    position: relative;
     font-family:
         JetBrains Bold,
         "sans-serif",
@@ -133,14 +135,14 @@ h2 {
         "sans-serif",
         Helvetica,
         "sans-serif";
-    background-color: var(--banner-color);
-    padding: 0 1rem;
+    padding-right: 2rem;
     width: 100%;
     color: whitesmoke;
     font-size: var(--bnnr-size);
-    box-shadow: var(--box-shadow);
-    border-radius: 8px;
+    text-shadow: var(--text-shadow);
+    border-bottom: 0.2rem solid var(--primary-color);
     margin: 0 0 1rem 0;
+    overflow: hidden;
 }
 
 p {
@@ -379,8 +381,8 @@ br {
 
 .cp-btn {
     position: absolute;
-    top: calc(var(--bnnr-size) - 1rem);
-    right: calc(var(--bnnr-size) - 1rem);
+    top: 50%;
+    right: 0.5rem;
     height: fit-content;
     width: fit-content;
     padding: 0.25rem;
@@ -389,6 +391,7 @@ br {
     object-fit: contain;
     cursor: pointer;
     transition: border 0.3s ease;
+    transform: translateY(-50%);
     border-radius: 6px;
 }
 
@@ -455,9 +458,9 @@ br {
     width: fit-content;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-color);
     padding: 1rem 2rem;
     box-shadow: var(--box-shadow);
+    background-color: var(--primary-color);
     border-radius: 8px;
     border: 0.2rem solid var(--border-color);
 }
@@ -527,8 +530,6 @@ br {
     overflow: hidden;
     align-items: center;
     border-radius: 6px;
-    transition: backdrop-filter 0.3s ease;
-    will-change: backdrop-filter, height;
 }
 
 .content::before,
@@ -567,7 +568,7 @@ br {
 .content > :nth-child(2) {
     opacity: 0.4;
     transform: translateY(12rem);
-    animation-delay: 300ms;
+    transition-delay: 200ms;
     transition:
         opacity,
         transform 300ms ease;
@@ -577,7 +578,7 @@ br {
 .content > :nth-child(3) {
     opacity: 0.4;
     transform: translateY(18rem);
-    animation-delay: 600ms;
+    transition-delay: 400ms;
     transition:
         opacity,
         transform 300ms ease;
@@ -587,7 +588,7 @@ br {
 .content > :nth-child(4) {
     opacity: 0.4;
     transform: translateY(24rem);
-    animation-delay: 900ms;
+    transition-delay: 600ms;
     transition:
         opacity,
         transform 300ms ease;
@@ -597,16 +598,11 @@ br {
 .content > :nth-child(5) {
     opacity: 0.4;
     transform: translateY(24rem);
-    animation-delay: 1200ms;
+    transition-delay: 800ms;
     transition:
         opacity,
         transform 300ms ease;
     will-change: opacity, transform;
-}
-
-.content.active,
-.member-content.active {
-    backdrop-filter: blur(4px);
 }
 
 .content.active > :nth-child(1),
@@ -709,6 +705,7 @@ br {
     height: fit-content;
     width: fit-content;
     place-items: center;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
@@ -720,7 +717,7 @@ br {
     width: 100%;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 8rem;
 }
 
 .img-lnk {
@@ -753,12 +750,13 @@ br {
 
 .contact-container p {
     font-size: var(--subtle-size);
+    max-width: fit-content;
     width: fit-content;
 }
 
 .join-lnk {
     display: grid;
-    min-height: 6rem;
+    min-height: 4rem;
     min-width: 8rem;
     place-items: center;
     padding: 0.5rem 1rem;
@@ -940,14 +938,21 @@ br {
     h2 {
         padding: 0.5rem;
     }
+    .content > p {
+        width: fit-content;
+        max-width: 90%;
+    }
+    small {
+        max-width: 90%;
+    }
     .hero-intro-text {
         max-width: 80vw;
         font-size: 1rem;
         text-align: center;
-        gap: 2rem;
+        gap: 1rem;
     }
     .hero-intro-text-wrapper {
-        gap: 4rem;
+        gap: 2rem;
     }
     .jmp-list {
         position: relative;
@@ -957,7 +962,7 @@ br {
         width: 100%;
 
         place-items: center;
-        gap: 2rem;
+        gap: 1rem;
     }
     .jmp-btn {
         position: relative;
@@ -968,8 +973,9 @@ br {
         width: 3rem;
     }
     .cp-btn {
-        top: calc(var(--bnnr-size) - 0.75rem);
-        right: calc(var(--bnnr-size) - 0.75rem);
+        top: 0.25rem;
+        right: 0.25rem;
+        transform: none;
     }
     .cp-btn svg {
         height: calc(var(--bnnr-size) + 0.5rem);
@@ -981,6 +987,15 @@ br {
     }
     .separator {
         min-height: 10vh;
+    }
+    .contact-collection {
+        gap: 0;
+        justify-content: space-around;
+    }
+    .join-lnk {
+        min-height: fit-content;
+        min-width: fit-content;
+        padding: 0.5rem 1rem;
     }
     .member-content .member-container .team-member-card {
         opacity: 0;

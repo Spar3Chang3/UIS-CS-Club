@@ -64,36 +64,42 @@ const DEFAULT_OBSERVER_TARGET_LIST = [
 const JMP_BTN_ATTRIBUTES = [
   {
     jmpName: "Top",
+    artifactName: "top",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rectangle-rounded-top"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6h6a6 6 0 0 1 6 6v5a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-5a6 6 0 0 1 6 -6z" /></svg>`,
     target: EL_ID_LIST.introCont,
     ariaLabel: "Scroll to top",
   },
   {
     jmpName: "Promotion",
+    artifactName: "promo",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-speakerphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a.9 .9 0 0 1 1.476 .692v12.156a.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`,
     target: EL_ID_LIST.promoContent,
     ariaLabel: "Scroll to promotion",
   },
   {
     jmpName: "Schedule",
+    artifactName: "schedule",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>`,
     target: EL_ID_LIST.schedContent,
     ariaLabel: "Scroll to schedule",
   },
   {
     jmpName: "Join Us",
+    artifactName: "join",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-discord"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M15.5 17c0 1 1.5 3 2 3c1.5 0 2.833 -1.667 3.5 -3c.667 -1.667 .5 -5.833 -1.5 -11.5c-1.457 -1.015 -3 -1.34 -4.5 -1.5l-.972 1.923a11.913 11.913 0 0 0 -4.053 0l-.975 -1.923c-1.5 .16 -3.043 .485 -4.5 1.5c-2 5.667 -2.167 9.833 -1.5 11.5c.667 1.333 2 3 3.5 3c.5 0 2 -2 2 -3" /><path d="M7 16.5c3.5 1 6.5 1 10 0" /></svg>`,
     target: EL_ID_LIST.joinContent,
     ariaLabel: "Scroll to join section",
   },
   {
     jmpName: "Members",
+    artifactName: "members",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>`,
     target: EL_ID_LIST.memberContent,
     ariaLabel: "Scroll to club members",
   },
   {
     jmpName: "Bottom",
+    artifactName: "bottom",
     hvrIcon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rectangle-rounded-bottom"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 18h6a6 6 0 0 0 6 -6v-5a1 1 0 0 0 -1 -1h-16a1 1 0 0 0 -1 1v5a6 6 0 0 0 6 6z" /></svg>`,
     target: EL_ID_LIST.ftr,
     ariaLabel: "Scroll to bottom",
@@ -237,8 +243,8 @@ function setJumps() {
   const topTarget = JMP_BTN_ATTRIBUTES[0];
   const btmTarget = JMP_BTN_ATTRIBUTES[JMP_BTN_ATTRIBUTES.length - 1];
 
-  JmpTargets.set(topTarget.jmpName, topTarget.target);
-  JmpTargets.set(btmTarget.jmpName, btmTarget.target);
+  JmpTargets.set(topTarget.artifactName, topTarget.target);
+  JmpTargets.set(btmTarget.artifactName, btmTarget.target);
 
   const hvrTopBtn = document.createElement("button");
   const hvrBtmBtn = document.createElement("button");
@@ -272,7 +278,7 @@ function setJumps() {
     const hvrJmpBtn = document.createElement("button");
     const cpBtn = document.createElement("button");
 
-    JmpTargets.set(target.jmpName, target.target);
+    JmpTargets.set(target.artifactName, target.target);
 
     jmpBtn.textContent = target.jmpName;
     hvrJmpBtn.innerHTML = target.hvrIcon;
@@ -296,12 +302,12 @@ function setJumps() {
     jmpBtn.title = target.ariaLabel;
     hvrJmpBtn.ariaLabel = target.ariaLabel;
     hvrJmpBtn.title = target.ariaLabel;
-    cpBtn.ariaLabel = `Copy website link of the ${target.jmpName} to your clipboard`;
+    cpBtn.ariaLabel = `Copy website link of the ${target.jmpName} section to your clipboard`;
     cpBtn.title = "Copy URL to clipboard";
 
     jmpList.appendChild(jmpBtn);
     hvrJmpList.appendChild(hvrJmpBtn);
-    ElStore.get(target.target).appendChild(cpBtn);
+    ElStore.get(target.target).querySelector("h2").appendChild(cpBtn);
 
     jmpBtn.addEventListener("click", jumpTo);
     hvrJmpBtn.addEventListener("click", jumpTo);
@@ -345,7 +351,10 @@ function generateSvgPath(parentEl, startEl, endEl, dotEl, pathEl) {
   const turnY = endRect.top - startRect.top + startDeltaY + endRect.height / 2;
   const endX = endRect.right - parentRect.left - ElAttributes.svgElBuffer;
 
-  const pathData = `M ${startX} ${startY} L ${turnX} ${startY} L ${turnX} ${turnY} L ${endX} ${turnY}`;
+  const pathData =
+    turnX < startX
+      ? `M ${startX} ${startY} L ${startX} ${turnY} L ${endX} ${turnY}`
+      : `M ${startX} ${startY} L ${turnX} ${startY} L ${turnX} ${turnY} L ${endX} ${turnY}`;
 
   pathEl.setAttribute("d", pathData);
 
@@ -371,9 +380,16 @@ function jumpTo(e) {
   const targetEl = ElStore.get(jump);
 
   if (targetEl) {
-    targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight / 2}px`;
     SetUrlArtifact(targetEl.dataset.jumpdestination);
-    targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
+    const bound = targetEl.getBoundingClientRect();
+    window.scrollTo({
+      top:
+        bound.height > window.innerHeight
+          ? bound.top - ElAttributes.hvrJmpBtnBttmBffr
+          : bound.top - (window.innerHeight - bound.height) / 2,
+      left: 0,
+      behavior: "smooth",
+    });
     targetEl.focus();
   }
 
@@ -504,22 +520,24 @@ document.addEventListener("DOMContentLoaded", () => {
   ObTargets.set(EL_ID_LIST.joinContent, {
     callback(el) {
       applyActiveClass(el);
-      el.addEventListener("transitionend", () => {
-        generateSvgPath(
-          ElStore.get(EL_ID_LIST.joinContent),
-          ElStore.get(EL_ID_LIST.joinSvgStart),
-          ElStore.get(EL_ID_LIST.joinSvgStop),
-          ElStore.get(EL_ID_LIST.joinSvgDot),
-          ElStore.get(EL_ID_LIST.joinSvgPath),
-        );
-        generateSvgPath(
-          ElStore.get(EL_ID_LIST.joinContent),
-          ElStore.get(EL_ID_LIST.contactSvgStart),
-          ElStore.get(EL_ID_LIST.contactSvgStop),
-          ElStore.get(EL_ID_LIST.contactSvgDot),
-          ElStore.get(EL_ID_LIST.contactSvgPath),
-        );
-      });
+      if (!IS_MOBILE.matches) {
+        el.addEventListener("transitionend", () => {
+          generateSvgPath(
+            ElStore.get(EL_ID_LIST.joinContent),
+            ElStore.get(EL_ID_LIST.joinSvgStart),
+            ElStore.get(EL_ID_LIST.joinSvgStop),
+            ElStore.get(EL_ID_LIST.joinSvgDot),
+            ElStore.get(EL_ID_LIST.joinSvgPath),
+          );
+          generateSvgPath(
+            ElStore.get(EL_ID_LIST.joinContent),
+            ElStore.get(EL_ID_LIST.contactSvgStart),
+            ElStore.get(EL_ID_LIST.contactSvgStop),
+            ElStore.get(EL_ID_LIST.contactSvgDot),
+            ElStore.get(EL_ID_LIST.contactSvgPath),
+          );
+        });
+      }
     },
     cleanup(el) {
       return;
@@ -553,7 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     {
-      threshold: IS_MOBILE.matches ? 0.4 : 0.8,
+      threshold: IS_MOBILE.matches ? 0.3 : 0.8,
     },
   );
 
@@ -580,13 +598,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const dataJmpDst = GetUrlArtifact();
     const targetEl = ElStore.get(JmpTargets.get(dataJmpDst));
     if (targetEl) {
-      targetEl.style = `scroll-margin-bottom: ${WINDOW_HEIGHT / 2 - targetEl.offsetHeight * 0.8}px`;
+      const bound = targetEl.getBoundingClientRect();
       window.scrollTo({
-        top: 0,
+        top:
+          bound.height > window.innerHeight
+            ? bound.top - ElAttributes.hvrJmpBtnBttmBffr
+            : bound.top - (window.innerHeight - bound.height) / 2,
         left: 0,
-        behavior: "instant",
+        behavior: "smooth",
       });
-      targetEl.scrollIntoView({ behavior: "smooth", block: "end" });
     }
 
     ElStore.get(EL_ID_LIST.clrCont).classList.add(ElAttributes.activeClassName);
