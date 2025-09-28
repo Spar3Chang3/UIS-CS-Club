@@ -5,9 +5,12 @@
 */
 
 const MEMBER_DATA_PATH = "/assets/members/ClubMembers.json"; // For fetching all the club members obvi, need to make an "add club member" part too
-const IS_MOBILE = window.matchMedia("only screen and (max-width: 768px)"); // 768px just because most modern phones report around there - fuck you iPhone 4s
-const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)"); // Still need to properly implement
-const WINDOW_HEIGHT = window.innerHeight;
+
+const WINDOW_ATTRIBUTES = {
+  isMobile: window.matchMedia("only screen and (max-width: 768px)"), // 768px just because most modern phones report around there - fuck you iPhone 4s
+  reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)"),
+  height: window.innerHeight,
+};
 
 const EL_ID_LIST = {
   // Top
@@ -187,7 +190,10 @@ async function addMembers() {
       let index = 0;
       for (const member of memberData) {
         const card = document.createElement("div");
-        if (!REDUCED_MOTION.matches && !IS_MOBILE.matches) {
+        if (
+          !WINDOW_ATTRIBUTES.reducedMotion.matches &&
+          !WINDOW_ATTRIBUTES.isMobile.matches
+        ) {
           card.style.setProperty("--trans-delay", `${100 * index}ms`);
           card.addEventListener("mousemove", applyTransform);
           card.addEventListener("mouseleave", resetTransform);
@@ -382,11 +388,12 @@ function jumpTo(e) {
   if (targetEl) {
     SetUrlArtifact(targetEl.dataset.jumpdestination);
     const bound = targetEl.getBoundingClientRect();
+    const elTop = targetEl.offsetTop;
     window.scrollTo({
       top:
         bound.height > window.innerHeight
-          ? bound.top - ElAttributes.hvrJmpBtnBttmBffr
-          : bound.top - (window.innerHeight - bound.height) / 2,
+          ? elTop - ElAttributes.hvrJmpBtnBttmBffr * 2
+          : elTop - (window.innerHeight - bound.height) / 2,
       left: 0,
       behavior: "smooth",
     });
@@ -494,6 +501,29 @@ function scrollPastIntro(e) {
   });
 }
 
+function refreshSize(e) {
+  e.preventDefault();
+
+  WINDOW_ATTRIBUTES.isMobile = window.matchMedia(
+    "only screen and (max-width: 768px)",
+  );
+
+  generateSvgPath(
+    ElStore.get(EL_ID_LIST.joinContent),
+    ElStore.get(EL_ID_LIST.joinSvgStart),
+    ElStore.get(EL_ID_LIST.joinSvgStop),
+    ElStore.get(EL_ID_LIST.joinSvgDot),
+    ElStore.get(EL_ID_LIST.joinSvgPath),
+  );
+  generateSvgPath(
+    ElStore.get(EL_ID_LIST.joinContent),
+    ElStore.get(EL_ID_LIST.contactSvgStart),
+    ElStore.get(EL_ID_LIST.contactSvgStop),
+    ElStore.get(EL_ID_LIST.contactSvgDot),
+    ElStore.get(EL_ID_LIST.contactSvgPath),
+  );
+}
+
 /* --------------------------------- MAIN FUNCTION --------------------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -520,7 +550,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ObTargets.set(EL_ID_LIST.joinContent, {
     callback(el) {
       applyActiveClass(el);
-      if (!IS_MOBILE.matches) {
+      if (!WINDOW_ATTRIBUTES.isMobile.matches) {
         el.addEventListener("transitionend", () => {
           generateSvgPath(
             ElStore.get(EL_ID_LIST.joinContent),
@@ -571,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     {
-      threshold: IS_MOBILE.matches ? 0.3 : 0.8,
+      threshold: WINDOW_ATTRIBUTES.isMobile.matches ? 0.2 : 0.8,
     },
   );
 
@@ -582,7 +612,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add event listener to make sure hover jump list does not cover the footer
   footerDetails.addEventListener("toggle", () => {
-    if (!IS_MOBILE.matches) {
+    if (!WINDOW_ATTRIBUTES.isMobile.matches) {
       console.log("Still triggering");
       moveHoverJumpList();
     }
@@ -599,11 +629,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const targetEl = ElStore.get(JmpTargets.get(dataJmpDst));
     if (targetEl) {
       const bound = targetEl.getBoundingClientRect();
+      const elTop = targetEl.offsetTop;
       window.scrollTo({
         top:
           bound.height > window.innerHeight
-            ? bound.top - ElAttributes.hvrJmpBtnBttmBffr
-            : bound.top - (window.innerHeight - bound.height) / 2,
+            ? elTop - ElAttributes.hvrJmpBtnBttmBffr * 2
+            : elTop - (window.innerHeight - bound.height) / 2,
         left: 0,
         behavior: "smooth",
       });
@@ -618,4 +649,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ElStore.get(EL_ID_LIST.clrUrlBtn).addEventListener("click", clearUrl);
   ElStore.get(EL_ID_LIST.scrlHlpBtn).addEventListener("click", scrollPastIntro);
+
+  window.addEventListener("resize", refreshSize);
 });

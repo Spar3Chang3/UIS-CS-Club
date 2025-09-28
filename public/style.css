@@ -706,7 +706,7 @@ br {
     width: fit-content;
     place-items: center;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
 }
 
 .contact-collection {
@@ -996,6 +996,10 @@ br {
         min-height: fit-content;
         min-width: fit-content;
         padding: 0.5rem 1rem;
+    }
+    .lnk-img {
+        height: 4.5rem;
+        width: 4.5rem;
     }
     .member-content .member-container .team-member-card {
         opacity: 0;
