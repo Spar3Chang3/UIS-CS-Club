@@ -137,7 +137,7 @@ h2 {
         "sans-serif";
     padding-right: 2rem;
     width: 100%;
-    color: whitesmoke;
+    color: var(--text-color);
     font-size: var(--bnnr-size);
     text-shadow: var(--text-shadow);
     border-bottom: 0.2rem solid var(--primary-color);
@@ -308,7 +308,7 @@ br {
     width: 3rem;
     padding: 0;
     margin: 0;
-    fill: var(--svg-fill);
+    fill: whitesmoke;
     pointer-events: none;
 }
 
@@ -331,7 +331,7 @@ br {
     width: 3rem;
     padding: 0;
     margin: 0;
-    stroke: var(--svg-fill);
+    stroke: whitesmoke;
     pointer-events: none;
 }
 
@@ -512,7 +512,7 @@ br {
 .scrl-hlp-btn svg {
     height: 4rem;
     width: 4rem;
-    stroke: var(--svg-fill);
+    stroke: whitesmoke;
 }
 
 .content,
@@ -763,7 +763,7 @@ br {
     font-size: calc(var(--prgph-size) + 0.25rem);
     background-color: var(--primary-color);
     text-decoration: none;
-    color: var(--text-color);
+    color: whitesmoke;
     cursor: pointer;
     border-radius: 0.5rem;
 }
